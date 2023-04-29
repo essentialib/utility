@@ -1,0 +1,161 @@
+
+# chain
+```js
+_(this).chain(callbackfn)
+```
+Essential 함수를 체이닝으로 사용할 수 있게 해주는 함수입니다.
+
+**Parameters**
+- `this: *`  
+  체이닝을 시작할 대상 객체
+- `callbackfn: Function`  
+  체이닝 콜백 함수, 첫 번째 인자로 Essential 객체를 받습니다.
+
+**Returns**
+- `returns: *`  
+  체이닝 콜백 함수의 반환값
+
+**Examples**
+```js
+let obj = [{a: 1}, {a: 2}, {a: 3}];
+
+_(obj).chain(v =>
+   v.map(e => e.a).filter(e => e > 1)
+) // [2, 3]
+
+let person = [
+  {name: 'John', age: 21},
+  {name: 'Jane', age: 22},
+  {name: 'Mary', age: 23},
+];
+
+_(person).chain(v =>
+   v.map(o => o.name).filter(n => n.startsWith('J')).head()
+) // 'John'
+```
+
+# equal
+```js
+equal(item1, item2)
+```
+두 값이 같은지 비교합니다.
+
+**Parameters**
+- `item1: *`  
+  
+- `item2: *`  
+  
+
+**Returns**
+- `returns: Boolean`  
+  두 값이 같으면 true, 다르면 false
+
+**Examples**
+```js
+equal([1, [2, 3, {'a': 7}]], [1, [2, 3, {'a': 7}]]); // true
+equal([1, [2, 3, {'a': 7}]], [1, [2, 3, {'a': 8}]]); // false
+```
+
+# isOf
+```js
+_(this).isOf(typef)
+```
+객체의 타입이 `typef`와 같은지 여부를 반환합니다.
+
+**Parameters**
+- `this: *`  
+  wrap 객체
+- `typef: Function`  
+  타입을 확인할 함수, 생성자 함수여야 합니다.
+
+**Returns**
+- `returns: Boolean`  
+  객체의 타입이 `typef`와 같은지 여부
+
+**Examples**
+```js
+_([1, 2, 3]).isOf(Array); // true
+_([1, 2, 3]).isOf(String); // false
+```
+
+# len
+```js
+len(item)
+```
+`item`의 길이를 반환합니다. Object는 key의 개수를, Set과 Map은 size를, Array와 String은 length를, Number는 자릿수를 반환합니다. 그 외 타입의 객체는 size 또는 length 속성을 반환합니다.
+
+**Parameters**
+- `item: *`  
+  길이를 구할 객체
+
+**Returns**
+- `returns: Number | undefined`  
+  `item`의 길이를 반환합니다.
+
+**Examples**
+```js
+len([1, 2, 3]); // 3
+len({a: 1, b: 2, c: 3}); // 3
+len(new Set([1, 2, 3])); // 3
+len(new Map([['a', 1], ['b', 2], ['c', 3]])); // 3
+len('abc'); // 3
+len(123); // 3
+```
+
+# range
+```js
+range([start=0], end, [step=1])
+```
+start부터 end까지 step만큼 증가하는 배열을 반환한다.
+
+**Parameters**
+- `[start=0]: Number`  
+  시작값
+- `end: Number`  
+  끝값
+- `[step=1]: Number`  
+  증가값, 음수면 감소
+
+**Returns**
+- `returns: Array`  
+  start부터 end까지 step만큼 증가하는 배열
+
+**Examples**
+```js
+range(5); // [0, 1, 2, 3, 4]
+range(1, 5); // [1, 2, 3, 4]
+range(1, 10, 2); // [1, 3, 5, 7, 9]
+range(10, 1, -2); // [10, 8, 6, 4, 2]
+```
+
+# type
+```js
+type(obj)
+```
+객체의 타입 이름을 반환합니다.
+
+**Parameters**
+- `obj: *`  
+  타입 이름을 구할 객체
+
+**Returns**
+- `returns: String`  
+  `obj`의 타입 이름
+
+**Examples**
+```js
+type(null); // 'null'
+type(undefined); // 'undefined'
+type(1); // 'number'
+type(''); // 'string'
+type(true); // 'boolean'
+type({}); // 'object'
+type([]); // 'array'
+type(new Set()); // 'set'
+type(new Map()); // 'map'
+type(new Date()); // 'date'
+type(/a/); // 'regexp'
+type(Symbol()); // 'symbol'
+type(function() {}); // 'function'
+type(new Error()); // 'error'
+```

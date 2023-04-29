@@ -1,0 +1,44 @@
+const type = require('../util/type.js');
+
+/**
+ * 객체에 `item`을 추가합니다.
+ * @this {Array | String | Object | Set | Map} `item`을 추가할 객체
+ * @param {Any} item 추가할 값(key)
+ * @param {Any} [value] 추가할 값(value)
+ * @returns {Array | String | Object | Set | Map} `item`을 this에 추가한 값
+ * @example
+ * _([0, 1, 2]).add(3) // [0, 1, 2, 3]
+ * _('abc').add('d') // 'abcd'
+ * _({ a: 1 }).add('b', 2) // { a: 1, b: 2 }
+ * _(new Set([0, 1, 2])).add(3) // Set { 0, 1, 2, 3 }
+ * _(new Map([['a', 1]])).add('b', 2) // Map { 'a' => 1, 'b' => 2 }
+ */
+
+function add(item, value) {
+    switch (type(this.wrap)) {
+        case 'array':
+            let ret = this.wrap;
+            ret[ret.length] = item;
+
+            return ret;
+        case 'string':
+            return this.wrap + item;
+        case 'object':
+            let obj = this.wrap;
+            obj[item] = value;
+
+            return obj;
+        case 'set':
+            let set = this.wrap;
+            set.add(item);
+
+            return set;
+        case 'map':
+            let map = this.wrap;
+            map.set(item, value);
+
+            return map;
+    }
+}
+
+module.exports = add;
