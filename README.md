@@ -8,9 +8,9 @@ MIT License를 따릅니다.
 
 ## How to use
 
-Release된 .zip 파일을 압축 해제한 뒤 module 폴더에 넣은 뒤, 아래의 코드로 모듈을 불러올 수 있습니다.
+가장 마지막 [Release](https://github.com/kktbot-module/Essential/releases)에서 .zip 파일을 압축 해제한 뒤 module 폴더에 넣은 뒤, 아래의 코드로 모듈을 불러올 수 있습니다.
 ```js
 const { _, equal, len, range, type } = require('Essential.js');
 ```
 
-라이브러리에 대한 자세한 정보는 [위키](https://github.com/kktbot-module/Essential/wiki)를 참고하세요.
+라이브러리에 대한 자세한 정보는 [Wiki](https://github.com/kktbot-module/Essential/wiki)를 참고하세요.
