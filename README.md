@@ -14,4 +14,4 @@ const { _, equal, len, range, type } = require('Essential.js');
 ```
 위 코드로 모듈을 불러올 수 있습니다.
 
-함수에 대한 자세한 정보는 wiki를 참고하세요.
+함수에 대한 자세한 정보는 [위키](https://github.com/kktbot-module/Essential/wiki)를 참고하세요.
