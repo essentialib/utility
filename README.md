@@ -7,7 +7,7 @@ ES5 문법과 카카오톡 봇 환경에서만 사용 가능한 ES6 문법으로
 MIT License를 따릅니다.
 
 ## How to use
----
+
 Release된 .zip 파일을 압축 해제한 뒤 module 폴더에 넣은 뒤,
 ```js
 const { _, equal, len, range, type } = require('Essential.js');
