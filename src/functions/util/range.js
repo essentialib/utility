@@ -5,10 +5,10 @@
  * @param {Number} [step=1] 증가값, 음수면 감소
  * @returns {Array} start부터 end까지 step만큼 증가하는 배열
  * @example
- * range(5); // [0, 1, 2, 3, 4]
- * range(1, 5); // [1, 2, 3, 4]
- * range(1, 10, 2); // [1, 3, 5, 7, 9]
- * range(10, 1, -2); // [10, 8, 6, 4, 2]
+ * _.range(5); // [0, 1, 2, 3, 4]
+ * _.range(1, 5); // [1, 2, 3, 4]
+ * _.range(1, 10, 2); // [1, 3, 5, 7, 9]
+ * _.range(10, 1, -2); // [10, 8, 6, 4, 2]
  */
 
 function range(start, end, step) {

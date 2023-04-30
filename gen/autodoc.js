@@ -104,7 +104,7 @@ for (let dir in comments) {
   for (let comment of comments[dir]) {
     const form = (comment.params[0].name == 'this') ?
                   `_(${comment.params[0].name}).${comment.name}(${comment.params.map(p => p.name).slice(1).join(', ')})` :
-                  `${comment.name}(${comment.params.map(p => p.name).join(', ')})`;
+                  `_.${comment.name}(${comment.params.map(p => p.name).join(', ')})`;
     const description = comment.description + (comment.aliases.length > 0 ?
                   '\n\n**Aliases**\n' + comment.aliases.map(a => `- \`${a}\``).join('\n') :
                   '');

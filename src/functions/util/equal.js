@@ -6,8 +6,8 @@ const type = require('./type.js');
  * @param {*} item2 비교할 값
  * @returns {Boolean} 두 값이 같으면 true, 다르면 false
  * @example
- * equal([1, [2, 3, {'a': 7}]], [1, [2, 3, {'a': 7}]]); // true
- * equal([1, [2, 3, {'a': 7}]], [1, [2, 3, {'a': 8}]]); // false
+ * _.equal([1, [2, 3, {'a': 7}]], [1, [2, 3, {'a': 7}]]); // true
+ * _.equal([1, [2, 3, {'a': 7}]], [1, [2, 3, {'a': 8}]]); // false
  */
 
 function equal(item1, item2) {

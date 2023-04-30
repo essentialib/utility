@@ -5,12 +5,12 @@ const type = require('./type.js');
  * @param {*} item 길이를 구할 객체
  * @returns {Number | undefined} `item`의 길이를 반환합니다.
  * @example
- * len([1, 2, 3]); // 3
- * len({a: 1, b: 2, c: 3}); // 3
- * len(new Set([1, 2, 3])); // 3
- * len(new Map([['a', 1], ['b', 2], ['c', 3]])); // 3
- * len('abc'); // 3
- * len(123); // 3
+ * _.len([1, 2, 3]); // 3
+ * _.len({a: 1, b: 2, c: 3}); // 3
+ * _.len(new Set([1, 2, 3])); // 3
+ * _.len(new Map([['a', 1], ['b', 2], ['c', 3]])); // 3
+ * _.len('abc'); // 3
+ * _.len(123); // 3
  */
 
 function len(item) {

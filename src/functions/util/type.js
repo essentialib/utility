@@ -3,20 +3,20 @@
  * @param {*} obj 타입 이름을 구할 객체
  * @returns {String} `obj`의 타입 이름
  * @example
- * type(null); // 'null'
- * type(undefined); // 'undefined'
- * type(1); // 'number'
- * type(''); // 'string'
- * type(true); // 'boolean'
- * type({}); // 'object'
- * type([]); // 'array'
- * type(new Set()); // 'set'
- * type(new Map()); // 'map'
- * type(new Date()); // 'date'
- * type(/a/); // 'regexp'
- * type(Symbol()); // 'symbol'
- * type(function() {}); // 'function'
- * type(new Error()); // 'error'
+ * _.type(null); // 'null'
+ * _.type(undefined); // 'undefined'
+ * _.type(1); // 'number'
+ * _.type(''); // 'string'
+ * _.type(true); // 'boolean'
+ * _.type({}); // 'object'
+ * _.type([]); // 'array'
+ * _.type(new Set()); // 'set'
+ * _.type(new Map()); // 'map'
+ * _.type(new Date()); // 'date'
+ * _.type(/a/); // 'regexp'
+ * _.type(Symbol()); // 'symbol'
+ * _.type(function() {}); // 'function'
+ * _.type(new Error()); // 'error'
  */
 
 function type(obj) {

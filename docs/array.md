@@ -232,13 +232,14 @@ _(['a', 'b', 'c', 'a', 'b', 'c']).unique(); // ['a', 'b', 'c']
 
 # uniqueBy
 ```js
-uniqueBy(by)
+_(this).uniqueBy(by)
 ```
 배열의 `by` 함숫값이 중복된 요소를 제거합니다.
 
 **Parameters**
 | name | type | description |
 |------|------|-------------|
+| this | `Array` | 원본 배열 |
 | by | `Function` | 요소마다 호출할 함수, 첫 번째 인수에는 요소가 전달됩니다. |
 
 **Returns**  
