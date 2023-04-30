@@ -118,5 +118,5 @@ for (let dir in comments) {
       .replace('{returns}', returns)
       .replace('{examples}', examples);
   }
-  fs.writeFileSync(path.join(__dirname, '../docs', dir + '.md'), markdown);
+  fs.writeFileSync(path.join(__dirname, '../docs', dir + '.md'), markdown.slice(1, -1));
 }

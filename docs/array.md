@@ -1,4 +1,3 @@
-
 # chuck
 ```js
 _(this).chuck(size)

@@ -1,4 +1,4 @@
-const { _, equal, len, range, type } = require('../src/Essential.js');
+const _ = require('../src/Essential.js');
 
 var users = [
     { 'user': 'barney',  'age': 36 },
@@ -6,4 +6,4 @@ var users = [
     { 'user': 'pebbles', 'age': 1 }
 ];
 
-console.log(len(users));
+console.log(_.len(users));

@@ -1,4 +1,3 @@
-
 # chain
 ```js
 _(this).chain(callbackfn)

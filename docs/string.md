@@ -1,4 +1,3 @@
-
 # format
 ```js
 _(this).format(options)
