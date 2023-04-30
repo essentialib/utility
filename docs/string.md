@@ -9,14 +9,15 @@ _(this).format(options)
 - `f`
 
 **Parameters**
-- `this: String`  
-  포맷 문자열
-- `options: ...* | Object`  
-  포맷 문자열에 대입할 값입니다.
+| name | type | description |
+|------|------|-------------|
+| this | `String` | 포맷 문자열 |
+| options | `...* | Object` | 포맷 문자열에 대입할 값입니다. |
 
-**Returns**
-- `returns: String`  
-  포맷된 문자열을 반환합니다.
+**Returns**  
+| type | description |
+|------|-------------|
+| `String` | 포맷된 문자열을 반환합니다. |
 
 **Examples**
 ```js
@@ -36,14 +37,15 @@ _(this).toCaseFormat(format)
 문자열을 대소문자 변환하여 반환합니다.
 
 **Parameters**
-- `this: String`  
-  변환할 문자열
-- `format: String`  
-  'u' or 'U'는 대문자, 'd' or 'D'는 소문자, 그 외는 변환하지 않습니다.
+| name | type | description |
+|------|------|-------------|
+| this | `String` | 변환할 문자열 |
+| format | `String` | 'u' or 'U'는 대문자, 'd' or 'D'는 소문자, 그 외는 변환하지 않습니다. |
 
-**Returns**
-- `returns: String`  
-  대소문자 변환된 문자열
+**Returns**  
+| type | description |
+|------|-------------|
+| `String` | 대소문자 변환된 문자열 |
 
 **Examples**
 ```js
@@ -60,12 +62,14 @@ _(this).toLower()
 소문자로 변환
 
 **Parameters**
-- `this: String`  
-  소문자로 변환할 문자열
+| name | type | description |
+|------|------|-------------|
+| this | `String` | 소문자로 변환할 문자열 |
 
-**Returns**
-- `returns: String`  
-  소문자로 변환된 문자열
+**Returns**  
+| type | description |
+|------|-------------|
+| `String` | 소문자로 변환된 문자열 |
 
 **Examples**
 ```js
@@ -79,12 +83,14 @@ _(this).toUpper()
 대문자로 변환
 
 **Parameters**
-- `this: String`  
-  대문자로 변환할 문자열
+| name | type | description |
+|------|------|-------------|
+| this | `String` | 대문자로 변환할 문자열 |
 
-**Returns**
-- `returns: String`  
-  대문자로 변환된 문자열
+**Returns**  
+| type | description |
+|------|-------------|
+| `String` | 대문자로 변환된 문자열 |
 
 **Examples**
 ```js
@@ -93,19 +99,20 @@ _('abc').toUpper(); // 'ABC'
 
 # trim
 ```js
-_(this).trim([chars=')
+_(this).trim([chars=' \t\r\n\v\f'])
 ```
 문자열의 앞뒤에 지정된 문자들을 제거합니다.
 
 **Parameters**
-- `this: String`  
-  변형할 문자열
-- `[chars=': String`  
-  \t\r\n\v\f'] 제거할 문자들, 기본값은 공백 문자
+| name | type | description |
+|------|------|-------------|
+| this | `String` | 변형할 문자열 |
+| [chars=' \t\r\n\v\f'] | `String` | 제거할 문자들, 기본값은 공백 문자 |
 
-**Returns**
-- `returns: String`  
-  문자열 앞뒤로 `chars`로 지정된 문자들을 제거한 문자열을 반환합니다.
+**Returns**  
+| type | description |
+|------|-------------|
+| `String` | 문자열 앞뒤로 `chars`로 지정된 문자들을 제거한 문자열을 반환합니다. |
 
 **Examples**
 ```js
@@ -115,19 +122,20 @@ _('_-abc_-').trim('_-'); // 'abc'
 
 # trimLeft
 ```js
-_(this).trimLeft([chars=')
+_(this).trimLeft([chars=' \t\r\n\v\f'])
 ```
 문자열의 앞에 지정된 문자들을 제거합니다.
 
 **Parameters**
-- `this: String`  
-  변형할 문자열
-- `[chars=': String`  
-  \t\r\n\v\f'] 제거할 문자들, 기본값은 공백 문자
+| name | type | description |
+|------|------|-------------|
+| this | `String` | 변형할 문자열 |
+| [chars=' \t\r\n\v\f'] | `String` | 제거할 문자들, 기본값은 공백 문자 |
 
-**Returns**
-- `returns: String`  
-  문자열 앞에 `chars`로 지정된 문자들을 제거한 문자열을 반환합니다.
+**Returns**  
+| type | description |
+|------|-------------|
+| `String` | 문자열 앞에 `chars`로 지정된 문자들을 제거한 문자열을 반환합니다. |
 
 **Examples**
 ```js
@@ -137,19 +145,20 @@ _('_-abc_-').trimLeft('_-'); // 'abc_-'
 
 # trimRight
 ```js
-_(this).trimRight([chars=')
+_(this).trimRight([chars=' \t\r\n\v\f'])
 ```
 문자열의 뒤에 지정된 문자들을 제거합니다.
 
 **Parameters**
-- `this: String`  
-  변형할 문자열
-- `[chars=': String`  
-  \t\r\n\v\f'] 제거할 문자들, 기본값은 공백 문자
+| name | type | description |
+|------|------|-------------|
+| this | `String` | 변형할 문자열 |
+| [chars=' \t\r\n\v\f'] | `String` | 제거할 문자들, 기본값은 공백 문자 |
 
-**Returns**
-- `returns: String`  
-  문자열 뒤에 `chars`로 지정된 문자들을 제거한 문자열을 반환합니다.
+**Returns**  
+| type | description |
+|------|-------------|
+| `String` | 문자열 뒤에 `chars`로 지정된 문자들을 제거한 문자열을 반환합니다. |
 
 **Examples**
 ```js

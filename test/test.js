@@ -1,4 +1,4 @@
-const { _, equal, len, range, type } = require('./Essential.js');
+const { _, equal, len, range, type } = require('../src/Essential.js');
 
 var users = [
     { 'user': 'barney',  'age': 36 },

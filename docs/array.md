@@ -6,14 +6,15 @@ _(this).chuck(size)
 배열을 지정한 크기로 나눕니다.
 
 **Parameters**
-- `this: Array`  
-  나눌 배열
-- `size: Number`  
-  배열을 나눌 크기
+| name | type | description |
+|------|------|-------------|
+| this | `Array` | 나눌 배열 |
+| size | `Number` | 배열을 나눌 크기 |
 
-**Returns**
-- `returns: Array`  
-  배열을 `size`개씩 나눈 배열
+**Returns**  
+| type | description |
+|------|-------------|
+| `Array` | 배열을 `size`개씩 나눈 배열 |
 
 **Examples**
 ```js
@@ -28,12 +29,14 @@ _(this).flatten()
 배열을 한 번 평탄화 합니다.
 
 **Parameters**
-- `this: Array`  
-  평탄화할 배열
+| name | type | description |
+|------|------|-------------|
+| this | `Array` | 평탄화할 배열 |
 
-**Returns**
-- `returns: Array`  
-  한 번 평탄화된 배열
+**Returns**  
+| type | description |
+|------|-------------|
+| `Array` | 한 번 평탄화된 배열 |
 
 **Examples**
 ```js
@@ -48,12 +51,14 @@ _(this).flattenAll()
 배열을 모두 평탄화 합니다.
 
 **Parameters**
-- `this: Array`  
-  평탄화할 배열
+| name | type | description |
+|------|------|-------------|
+| this | `Array` | 평탄화할 배열 |
 
-**Returns**
-- `returns: Array`  
-  모두 평탄화된 배열
+**Returns**  
+| type | description |
+|------|-------------|
+| `Array` | 모두 평탄화된 배열 |
 
 **Examples**
 ```js
@@ -68,14 +73,15 @@ _(this).flattenDepth(depth)
 배열을 지정된 깊이만큼 평탄화 합니다.
 
 **Parameters**
-- `this: Array`  
-  평탄화할 배열
-- `depth: Number`  
-  평탄화할 깊이
+| name | type | description |
+|------|------|-------------|
+| this | `Array` | 평탄화할 배열 |
+| depth | `Number` | 평탄화할 깊이 |
 
-**Returns**
-- `returns: Array`  
-  `depth`번 평탄화된 배열
+**Returns**  
+| type | description |
+|------|-------------|
+| `Array` | `depth`번 평탄화된 배열 |
 
 **Examples**
 ```js
@@ -90,12 +96,14 @@ _(this).getDepth()
 배열의 깊이를 구한다.
 
 **Parameters**
-- `this: Array`  
-  깊이를 구할 배열
+| name | type | description |
+|------|------|-------------|
+| this | `Array` | 깊이를 구할 배열 |
 
-**Returns**
-- `returns: Number`  
-  배열의 깊이
+**Returns**  
+| type | description |
+|------|-------------|
+| `Number` | 배열의 깊이 |
 
 **Examples**
 ```js
@@ -110,14 +118,15 @@ _(this).pull([arguments])
 배열에서 주어진 요소를 제거한 배열을 반환합니다.
 
 **Parameters**
-- `this: Array`  
-  주어진 요소를 제거할 배열
-- `[arguments]: ...*`  
-  제거할 요소
+| name | type | description |
+|------|------|-------------|
+| this | `Array` | 주어진 요소를 제거할 배열 |
+| [arguments] | `...*` | 제거할 요소 |
 
-**Returns**
-- `returns: Array`  
-  배열에서 주어진 요소를 제거한 배열
+**Returns**  
+| type | description |
+|------|-------------|
+| `Array` | 배열에서 주어진 요소를 제거한 배열 |
 
 **Examples**
 ```js
@@ -132,14 +141,15 @@ _(this).pullAll(elements)
 배열에서 주어진 요소를 제거한 배열을 반환합니다.
 
 **Parameters**
-- `this: Array`  
-  주어진 요소를 제거할 배열
-- `elements: Array`  
-  제거할 요소
+| name | type | description |
+|------|------|-------------|
+| this | `Array` | 주어진 요소를 제거할 배열 |
+| elements | `Array` | 제거할 요소 |
 
-**Returns**
-- `returns: Array`  
-  배열에서 주어진 요소를 제거한 배열
+**Returns**  
+| type | description |
+|------|-------------|
+| `Array` | 배열에서 주어진 요소를 제거한 배열 |
 
 **Examples**
 ```js
@@ -157,14 +167,15 @@ _(this).push([arguments])
 - `append`
 
 **Parameters**
-- `this: Array`  
-  값들을 추가할 배열
-- `[arguments]: ...*`  
-  추가할 값들
+| name | type | description |
+|------|------|-------------|
+| this | `Array` | 값들을 추가할 배열 |
+| [arguments] | `...*` | 추가할 값들 |
 
-**Returns**
-- `returns: Array`  
-  `arguments`가 추가된 배열
+**Returns**  
+| type | description |
+|------|-------------|
+| `Array` | `arguments`가 추가된 배열 |
 
 **Examples**
 ```js
@@ -182,14 +193,15 @@ _(this).pushAll(args)
 - `appendAll`
 
 **Parameters**
-- `this: Array`  
-  값들을 추가할 배열
-- `args: Array`  
-  추가할 값들
+| name | type | description |
+|------|------|-------------|
+| this | `Array` | 값들을 추가할 배열 |
+| args | `Array` | 추가할 값들 |
 
-**Returns**
-- `returns: Array`  
-  `args`가 추가된 배열
+**Returns**  
+| type | description |
+|------|-------------|
+| `Array` | `args`가 추가된 배열 |
 
 **Examples**
 ```js
@@ -204,12 +216,14 @@ _(this).unique()
 배열의 중복된 요소를 제거합니다.
 
 **Parameters**
-- `this: Array`  
-  중복된 요소를 제거할 배열
+| name | type | description |
+|------|------|-------------|
+| this | `Array` | 중복된 요소를 제거할 배열 |
 
-**Returns**
-- `returns: Array`  
-  중복된 요소가 제거된 배열
+**Returns**  
+| type | description |
+|------|-------------|
+| `Array` | 중복된 요소가 제거된 배열 |
 
 **Examples**
 ```js
@@ -224,12 +238,14 @@ uniqueBy(by)
 배열의 `by` 함숫값이 중복된 요소를 제거합니다.
 
 **Parameters**
-- `by: Function`  
-  요소마다 호출할 함수
+| name | type | description |
+|------|------|-------------|
+| by | `Function` | 요소마다 호출할 함수, 첫 번째 인수에는 요소가 전달됩니다. |
 
-**Returns**
-- `returns: Array`  
-  중복된 요소가 제거된 배열
+**Returns**  
+| type | description |
+|------|-------------|
+| `Array` | 중복된 요소가 제거된 배열 |
 
 **Examples**
 ```js

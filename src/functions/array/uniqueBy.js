@@ -1,7 +1,7 @@
 /**
  * 배열의 `by` 함숫값이 중복된 요소를 제거합니다.
  * @this {Array}
- * @param {Function} by 요소마다 호출할 함수
+ * @param {Function} by 요소마다 호출할 함수, 첫 번째 인수에는 요소가 전달됩니다.
  * @returns {Array} 중복된 요소가 제거된 배열
  * @example
  * _([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]).uniqueBy(v => v % 2); // [1, 2]

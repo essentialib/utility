@@ -127,10 +127,10 @@ Essential.prototype = {
 	chain: require('./functions/util/chain.js')
 };
 
-module.exports = {
-	_(x) { return new Essential(x); },
-	equal: equal,
-	len: require('./functions/util/len.js'),
-	range: require('./functions/util/range.js'),
-	type: type,
-}
+const _ = x => new Essential(x);
+_.equal = equal;
+_.len = require('./functions/util/len.js');
+_.range = require('./functions/util/range.js');
+_.type = type;
+
+module.exports = _;

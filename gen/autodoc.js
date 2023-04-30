@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const dirPath = path.join(__dirname, '../functions');
+const dirPath = path.join(__dirname, '../src/functions');
 
 class Typemark {
   constructor(type, name, description) {
@@ -51,7 +51,7 @@ for (let dir of dirs) {
             comment.params.push(new Typemark(m.groups.type, 'this', m.groups.desc));
             break;
           case '@param':
-            m = value.match(/{(?<type>.*?)} (?<name>.*?) (?<desc>.*)/);
+            m = value.match(/{(?<type>.*?)} (?<name>\w+|\[.*?\]) (?<desc>.*)/);
             if (m == null) break;
             comment.params.push(new Typemark(m.groups.type, m.groups.name, m.groups.desc));
             break;
@@ -84,9 +84,13 @@ const template =
 {description}
 
 **Parameters**
+| name | type | description |
+|------|------|-------------|
 {params}
 
-**Returns**
+**Returns**  
+| type | description |
+|------|-------------|
 {returns}
 
 **Examples**
@@ -102,8 +106,8 @@ for (let dir in comments) {
                   `_(${comment.params[0].name}).${comment.name}(${comment.params.map(p => p.name).slice(1).join(', ')})` :
                   `${comment.name}(${comment.params.map(p => p.name).join(', ')})`;
     const description = comment.description + (comment.aliases.length > 0 ? '\n\n**Aliases**\n' + comment.aliases.map(a => `- \`${a}\``).join('\n') : '');
-    const params = comment.params.map(p => `- \`${p.name}: ${p.type}\`  \n  ${p.description}`).join('\n');
-    const returns = `- \`${comment.returns.name}: ${comment.returns.type}\`  \n  ${comment.returns.description}`;
+    const params = comment.params.map(p => `| ${p.name} | \`${p.type}\` | ${p.description} |`).join('\n');
+    const returns = comment.returns == null ? '' : `| \`${comment.returns.type}\` | ${comment.returns.description} |`;
     const examples = comment.examples.slice(0, -1);
 
     markdown += template

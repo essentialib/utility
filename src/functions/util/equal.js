@@ -2,8 +2,8 @@ const type = require('./type.js');
 
 /**
  * 두 값이 같은지 비교합니다.
- * @param {*} item1 
- * @param {*} item2 
+ * @param {*} item1 비교할 값
+ * @param {*} item2 비교할 값
  * @returns {Boolean} 두 값이 같으면 true, 다르면 false
  * @example
  * equal([1, [2, 3, {'a': 7}]], [1, [2, 3, {'a': 7}]]); // true
