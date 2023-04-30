@@ -1,7 +1,7 @@
 /**
  * 객체에 `item`이 몇개 있는지 반환합니다.
  * @this {Array | String | Object | Set | Map} 순회할 객체
- * @param {Any} item 개수를 세고자 하는 값
+ * @param {*} item 개수를 세고자 하는 값
  * @param {Function} by 요소마다 호출할 함수, 첫번째 인자는 요소(value), 두번째 인자는 인덱스(key)
  * @returns {Number} `item`의 개수
  * @example

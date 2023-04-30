@@ -3,8 +3,8 @@ const type = require('../util/type.js');
 /**
  * 객체에 `item`을 추가합니다.
  * @this {Array | String | Object | Set | Map} `item`을 추가할 객체
- * @param {Any} item 추가할 값(key)
- * @param {Any} [value] 추가할 값(value)
+ * @param {*} item 추가할 값(key)
+ * @param {*} [value] 추가할 값(value)
  * @returns {Array | String | Object | Set | Map} `item`을 this에 추가한 값
  * @example
  * _([0, 1, 2]).add(3) // [0, 1, 2, 3]

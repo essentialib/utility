@@ -11,7 +11,7 @@ _(this).format(options)
 | name | type | description |
 |------|------|-------------|
 | this | `String` | 포맷 문자열 |
-| options | `...* | Object` | 포맷 문자열에 대입할 값입니다. |
+| options | `...* \| Object` | 포맷 문자열에 대입할 값입니다. |
 
 **Returns**  
 | type | description |

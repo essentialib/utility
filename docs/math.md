@@ -7,7 +7,7 @@ _(this).max()
 **Parameters**
 | name | type | description |
 |------|------|-------------|
-| this | `Array | Set` | 순회할 객체 |
+| this | `Array \| Set` | 순회할 객체 |
 
 **Returns**  
 | type | description |
@@ -29,7 +29,7 @@ _(this).maxBy([by=(e => e)])
 **Parameters**
 | name | type | description |
 |------|------|-------------|
-| this | `Array | Set` | 순회할 객체 |
+| this | `Array \| Set` | 순회할 객체 |
 | [by=(e => e)] | `Function` | 요소마다 호출할 함수, 첫번째 인자는 요소(value) |
 
 **Returns**  
@@ -51,7 +51,7 @@ _(this).min()
 **Parameters**
 | name | type | description |
 |------|------|-------------|
-| this | `Array | Set` | 순회할 객체 |
+| this | `Array \| Set` | 순회할 객체 |
 
 **Returns**  
 | type | description |
@@ -73,7 +73,7 @@ _(this).minBy([by=(e => e)])
 **Parameters**
 | name | type | description |
 |------|------|-------------|
-| this | `Array | Set` | 순회할 객체 |
+| this | `Array \| Set` | 순회할 객체 |
 | [by=(e => e)] | `Function` | 요소마다 호출할 함수, 첫번째 인자는 요소(value) |
 
 **Returns**  
@@ -95,7 +95,7 @@ _(this).product()
 **Parameters**
 | name | type | description |
 |------|------|-------------|
-| this | `Array | Set` | 순회할 객체 |
+| this | `Array \| Set` | 순회할 객체 |
 
 **Returns**  
 | type | description |
@@ -117,7 +117,7 @@ _(this).productBy([by=(e => e)])
 **Parameters**
 | name | type | description |
 |------|------|-------------|
-| this | `Array | Set` | 순회할 객체 |
+| this | `Array \| Set` | 순회할 객체 |
 | [by=(e => e)] | `Function` | 요소마다 호출할 함수, 첫번째 인자는 요소(value) |
 
 **Returns**  
@@ -139,7 +139,7 @@ _(this).sum()
 **Parameters**
 | name | type | description |
 |------|------|-------------|
-| this | `Array | Set` | 순회할 객체 |
+| this | `Array \| Set` | 순회할 객체 |
 
 **Returns**  
 | type | description |
@@ -161,7 +161,7 @@ _(this).sumBy([by=(e => e)])
 **Parameters**
 | name | type | description |
 |------|------|-------------|
-| this | `Array | Set` | 순회할 객체 |
+| this | `Array \| Set` | 순회할 객체 |
 | [by=(e => e)] | `Function` | 요소마다 호출할 함수, 첫번째 인자는 요소(value) |
 
 **Returns**  

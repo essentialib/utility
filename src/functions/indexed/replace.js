@@ -3,9 +3,9 @@ const type = require('../util/type.js');
 /**
  * 객체의 값 중 `from`을 전부 `to`로 바꿉니다.
  * @this {Array | String} 순회할 객체
- * @param {Any} from 바꿀 값
- * @param {Any} to 바뀔 값
- * @returns {Any} 모든 `from`을 `to`로 바꾼 객체
+ * @param {*} from 바꿀 값
+ * @param {*} to 바뀔 값
+ * @returns {*} 모든 `from`을 `to`로 바꾼 객체
  * @example
  * _("aabbcc").replace("a", "b"); // 'bbbbcc'
  * _([1, 2, 1, 2, 2, 3]).replace(2, 3); // [1, 3, 1, 3, 3, 3]

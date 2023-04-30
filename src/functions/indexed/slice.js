@@ -1,5 +1,6 @@
 /**
  * 배열의 [start, end) 구간에서 step만큼 건너뛴 배열을 반환합니다. Python의 slice 문법과 일치합니다.
+ * @this {Array | String} 원본 객체
  * @param {Number} [start=0] 시작 인덱스, 음수일 경우 배열의 끝에서부터 센 인덱스
  * @param {Number} [end=length] 끝 인덱스, 음수일 경우 배열의 끝에서부터 센 인덱스
  * @param {Number} [step=1] 건너뛸 간격

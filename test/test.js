@@ -6,4 +6,4 @@ var users = [
     { 'user': 'pebbles', 'age': 1 }
 ];
 
-console.log(_.len(users));
+console.log('\\');

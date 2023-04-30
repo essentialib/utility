@@ -7,14 +7,14 @@ _(this).add(item, [value])
 **Parameters**
 | name | type | description |
 |------|------|-------------|
-| this | `Array | String | Object | Set | Map` | `item`을 추가할 객체 |
-| item | `Any` | 추가할 값(key) |
-| [value] | `Any` | 추가할 값(value) |
+| this | `Array \| String \| Object \| Set \| Map` | `item`을 추가할 객체 |
+| item | `*` | 추가할 값(key) |
+| [value] | `*` | 추가할 값(value) |
 
 **Returns**  
 | type | description |
 |------|-------------|
-| `Array | String | Object | Set | Map` | `item`을 this에 추가한 값 |
+| `Array \| String \| Object \| Set \| Map` | `item`을 this에 추가한 값 |
 
 **Examples**
 ```js
@@ -37,7 +37,7 @@ falsy한 값을 제거한 배열를 반환합니다.
 **Parameters**
 | name | type | description |
 |------|------|-------------|
-| this | `Array | String | Object | Set | Map` | falsy한 값을 제거할 배열 |
+| this | `Array \| String \| Object \| Set \| Map` | falsy한 값을 제거할 배열 |
 
 **Returns**  
 | type | description |
@@ -58,8 +58,8 @@ _(this).count(item)
 **Parameters**
 | name | type | description |
 |------|------|-------------|
-| this | `Array | String | Object | Set | Map` | 순회할 객체 |
-| item | `Any` | 개수를 세고자 하는 값 |
+| this | `Array \| String \| Object \| Set \| Map` | 순회할 객체 |
+| item | `*` | 개수를 세고자 하는 값 |
 
 **Returns**  
 | type | description |
@@ -84,8 +84,8 @@ _(this).countBy(item, by)
 **Parameters**
 | name | type | description |
 |------|------|-------------|
-| this | `Array | String | Object | Set | Map` | 순회할 객체 |
-| item | `Any` | 개수를 세고자 하는 값 |
+| this | `Array \| String \| Object \| Set \| Map` | 순회할 객체 |
+| item | `*` | 개수를 세고자 하는 값 |
 | by | `Function` | 요소마다 호출할 함수, 첫번째 인자는 요소(value), 두번째 인자는 인덱스(key) |
 
 **Returns**  
@@ -111,7 +111,7 @@ _(this).each(viewer)
 **Parameters**
 | name | type | description |
 |------|------|-------------|
-| this | `Array | String | Object | Set | Map` | 순회할 객체 |
+| this | `Array \| String \| Object \| Set \| Map` | 순회할 객체 |
 | viewer | `Function` | 요소마다 호출할 함수, 첫번째 인자는 요소(value), 두번째 인자는 인덱스(key) |
 
 **Returns**  
@@ -137,7 +137,7 @@ _(this).every(condition)
 **Parameters**
 | name | type | description |
 |------|------|-------------|
-| this | `Array | String | Object | Set | Map` | 순회할 객체 |
+| this | `Array \| String \| Object \| Set \| Map` | 순회할 객체 |
 | condition | `Function` | 요소마다 호출할 함수, 첫번째 인자는 요소(value), 두번째 인자는 인덱스(key) |
 
 **Returns**  
@@ -161,13 +161,13 @@ _(this).filter(condition)
 **Parameters**
 | name | type | description |
 |------|------|-------------|
-| this | `Array | String | Object | Set | Map` | 순회할 객체 |
+| this | `Array \| String \| Object \| Set \| Map` | 순회할 객체 |
 | condition | `Function` | 요소마다 호출할 함수, 첫번째 인자는 요소(value), 두번째 인자는 인덱스(key) |
 
 **Returns**  
 | type | description |
 |------|-------------|
-| `Set | String | Array | Map | Object` | 조건에 맞는 요소들로 이루어진 객체 |
+| `Set \| String \| Array \| Map \| Object` | 조건에 맞는 요소들로 이루어진 객체 |
 
 **Examples**
 ```js
@@ -185,13 +185,13 @@ _(this).filterNot(condition)
 **Parameters**
 | name | type | description |
 |------|------|-------------|
-| this | `Array | String | Object | Set | Map` | 순회할 객체 |
+| this | `Array \| String \| Object \| Set \| Map` | 순회할 객체 |
 | condition | `Function` | 요소마다 호출할 함수, 첫번째 인자는 요소(value), 두번째 인자는 인덱스(key) |
 
 **Returns**  
 | type | description |
 |------|-------------|
-| `Set | String | Array | Map | Object` | 조건에 맞지 않는 요소들로 이루어진 객체 |
+| `Set \| String \| Array \| Map \| Object` | 조건에 맞지 않는 요소들로 이루어진 객체 |
 
 **Examples**
 ```js
@@ -209,7 +209,7 @@ _(this).freq()
 **Parameters**
 | name | type | description |
 |------|------|-------------|
-| this | `Array | String | Object | Set | Map` | 순회할 객체 |
+| this | `Array \| String \| Object \| Set \| Map` | 순회할 객체 |
 
 **Returns**  
 | type | description |
@@ -235,8 +235,8 @@ _(this).has(item)
 **Parameters**
 | name | type | description |
 |------|------|-------------|
-| this | `Array | String | Object | Set | Map` | 순회할 객체 |
-| item | `Any` | 찾을 요소 |
+| this | `Array \| String \| Object \| Set \| Map` | 순회할 객체 |
+| item | `*` | 찾을 요소 |
 
 **Returns**  
 | type | description |
@@ -262,12 +262,12 @@ _(this).items()
 **Parameters**
 | name | type | description |
 |------|------|-------------|
-| this | `Array | String | Object | Map` | 순회할 객체 |
+| this | `Array \| String \| Object \| Map` | 순회할 객체 |
 
 **Returns**  
 | type | description |
 |------|-------------|
-| `Array<Item> | Set<Item>` | 객체의 요소들을 Item 객체로 변환하여 반환합니다. 순서가 있는 객체는 Array, 없는 객체는 Set으로 반환합니다. |
+| `Array<Item> \| Set<Item>` | 객체의 요소들을 Item 객체로 변환하여 반환합니다. 순서가 있는 객체는 Array, 없는 객체는 Set으로 반환합니다. |
 
 **Examples**
 ```js
@@ -285,12 +285,12 @@ _(this).keys()
 **Parameters**
 | name | type | description |
 |------|------|-------------|
-| this | `Array | String | Object | Map` | 순회할 객체 |
+| this | `Array \| String \| Object \| Map` | 순회할 객체 |
 
 **Returns**  
 | type | description |
 |------|-------------|
-| `Set | Array` | 키값들로 이루어진 객체, 순서가 있는 객체는 Array, 없는 객체는 Set |
+| `Set \| Array` | 키값들로 이루어진 객체, 순서가 있는 객체는 Array, 없는 객체는 Set |
 
 **Examples**
 ```js
@@ -312,13 +312,13 @@ _(this).map(transformer)
 **Parameters**
 | name | type | description |
 |------|------|-------------|
-| this | `Array | String | Object | Set | Map` | 순회할 객체 |
+| this | `Array \| String \| Object \| Set \| Map` | 순회할 객체 |
 | transformer | `Function` | 요소마다 호출할 함수, 첫번째 인자는 요소(value), 두번째 인자는 인덱스(key) |
 
 **Returns**  
 | type | description |
 |------|-------------|
-| `Array | Set | String | Map | Object` | 각 요소에 대해 `transformer`를 호출한 결과를 모은 배열 |
+| `Array \| Set \| String \| Map \| Object` | 각 요소에 대해 `transformer`를 호출한 결과를 모은 배열 |
 
 **Examples**
 ```js
@@ -339,7 +339,7 @@ _(this).reach(viewer)
 **Parameters**
 | name | type | description |
 |------|------|-------------|
-| this | `Array | String | Object | Set | Map` | 순회할 객체 |
+| this | `Array \| String \| Object \| Set \| Map` | 순회할 객체 |
 | viewer | `Function` | 요소마다 호출할 함수, 첫번째 인자는 요소(value), 두번째 인자는 인덱스(key) |
 
 **Returns**  
@@ -362,7 +362,7 @@ _(this).some(condition)
 **Parameters**
 | name | type | description |
 |------|------|-------------|
-| this | `Array | String | Object | Set | Map` | 순회할 객체 |
+| this | `Array \| String \| Object \| Set \| Map` | 순회할 객체 |
 | condition | `Function` | 요소마다 호출할 함수, 첫번째 인자는 요소(value), 두번째 인자는 인덱스(key) |
 
 **Returns**  
@@ -386,12 +386,12 @@ _(this).values()
 **Parameters**
 | name | type | description |
 |------|------|-------------|
-| this | `Array | String | Object | Map | Set` | 순회할 객체 |
+| this | `Array \| String \| Object \| Map \| Set` | 순회할 객체 |
 
 **Returns**  
 | type | description |
 |------|-------------|
-| `Set | Array` | 값들로 이루어진 객체, 순서가 있는 객체는 Array, 없는 객체는 Set |
+| `Set \| Array` | 값들로 이루어진 객체, 순서가 있는 객체는 Array, 없는 객체는 Set |
 
 **Examples**
 ```js

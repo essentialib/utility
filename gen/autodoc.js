@@ -105,9 +105,14 @@ for (let dir in comments) {
     const form = (comment.params[0].name == 'this') ?
                   `_(${comment.params[0].name}).${comment.name}(${comment.params.map(p => p.name).slice(1).join(', ')})` :
                   `${comment.name}(${comment.params.map(p => p.name).join(', ')})`;
-    const description = comment.description + (comment.aliases.length > 0 ? '\n\n**Aliases**\n' + comment.aliases.map(a => `- \`${a}\``).join('\n') : '');
-    const params = comment.params.map(p => `| ${p.name} | \`${p.type}\` | ${p.description} |`).join('\n');
-    const returns = comment.returns == null ? '' : `| \`${comment.returns.type}\` | ${comment.returns.description} |`;
+    const description = comment.description + (comment.aliases.length > 0 ?
+                  '\n\n**Aliases**\n' + comment.aliases.map(a => `- \`${a}\``).join('\n') :
+                  '');
+    const params = comment.params
+                  .map(p => `| ${p.name} | \`${p.type.replace(/\|/g, '\\|')}\` | ${p.description} |`).join('\n');
+    const returns = comment.returns == null ?
+                  '' :
+                  `| \`${comment.returns.type.replace(/\|/g, '\\|')}\` | ${comment.returns.description} |`;
     const examples = comment.examples.slice(0, -1);
 
     markdown += template

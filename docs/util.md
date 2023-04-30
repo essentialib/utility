@@ -94,7 +94,7 @@ len(item)
 **Returns**  
 | type | description |
 |------|-------------|
-| `Number | undefined` | `item`의 길이를 반환합니다. |
+| `Number \| undefined` | `item`의 길이를 반환합니다. |
 
 **Examples**
 ```js

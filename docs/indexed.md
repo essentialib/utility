@@ -10,7 +10,7 @@ _(this).at(index)
 **Parameters**
 | name | type | description |
 |------|------|-------------|
-| this | `Array | String` | 순회할 객체 |
+| this | `Array \| String` | 순회할 객체 |
 | index | `Number` | 요소의 인덱스, 음수일 경우 배열의 끝에서부터 셈합니다. |
 
 **Returns**  
@@ -35,7 +35,7 @@ _(this).endsWith(item)
 **Parameters**
 | name | type | description |
 |------|------|-------------|
-| this | `Array | String` | 순회할 객체 |
+| this | `Array \| String` | 순회할 객체 |
 | item | `*` | 비교할 요소 |
 
 **Returns**  
@@ -58,7 +58,7 @@ _(this).find(value)
 **Parameters**
 | name | type | description |
 |------|------|-------------|
-| this | `Array | String` | 순회할 객체 |
+| this | `Array \| String` | 순회할 객체 |
 | value | `*` | 찾을 값 |
 
 **Returns**  
@@ -86,7 +86,7 @@ _(this).head()
 **Parameters**
 | name | type | description |
 |------|------|-------------|
-| this | `Array | String` | 순회할 객체 |
+| this | `Array \| String` | 순회할 객체 |
 
 **Returns**  
 | type | description |
@@ -109,14 +109,14 @@ _(this).pad(length, [pad=' ', 0])
 **Parameters**
 | name | type | description |
 |------|------|-------------|
-| this | `Array | String` | 순회할 객체 |
+| this | `Array \| String` | 순회할 객체 |
 | length | `Number` | 패딩할 길이 |
 | [pad=' ', 0] | `*` | 패딩할 값, 객체가 문자열이면 공백, 배열이면 0이 기본값입니다. |
 
 **Returns**  
 | type | description |
 |------|-------------|
-| `Array | String` | 객체를 `length`만큼 `pad`로 채운 값 |
+| `Array \| String` | 객체를 `length`만큼 `pad`로 채운 값 |
 
 **Examples**
 ```js
@@ -135,14 +135,14 @@ _(this).padEnd(length, [pad=' ', 0])
 **Parameters**
 | name | type | description |
 |------|------|-------------|
-| this | `Array | String` | 순회할 객체 |
+| this | `Array \| String` | 순회할 객체 |
 | length | `Number` | 패딩할 길이 |
 | [pad=' ', 0] | `*` | 패딩할 값, 객체가 문자열이면 공백, 배열이면 0이 기본값입니다. |
 
 **Returns**  
 | type | description |
 |------|-------------|
-| `Array | String` | 객체를 `length`만큼 `pad`로 채운 값 |
+| `Array \| String` | 객체를 `length`만큼 `pad`로 채운 값 |
 
 **Examples**
 ```js
@@ -161,14 +161,14 @@ _(this).padStart(length, [pad=' ', 0])
 **Parameters**
 | name | type | description |
 |------|------|-------------|
-| this | `Array | String` | 순회할 객체 |
+| this | `Array \| String` | 순회할 객체 |
 | length | `Number` | 패딩할 길이 |
 | [pad=' ', 0] | `*` | 패딩할 값, 객체가 문자열이면 공백, 배열이면 0이 기본값입니다. |
 
 **Returns**  
 | type | description |
 |------|-------------|
-| `Array | String` | 객체를 `length`만큼 `pad`로 채운 값 |
+| `Array \| String` | 객체를 `length`만큼 `pad`로 채운 값 |
 
 **Examples**
 ```js
@@ -190,13 +190,13 @@ _(this).pop(idx)
 **Parameters**
 | name | type | description |
 |------|------|-------------|
-| this | `Array | String` | 순회할 객체 |
+| this | `Array \| String` | 순회할 객체 |
 | idx | `Number` | 제거할 요소의 인덱스, 음수일 경우 배열의 끝에서부터의 거리로 계산됩니다. |
 
 **Returns**  
 | type | description |
 |------|-------------|
-| `Array | String` | `idx`번째 요소를 제거한 배열 |
+| `Array \| String` | `idx`번째 요소를 제거한 배열 |
 
 **Examples**
 ```js
@@ -215,14 +215,14 @@ _(this).repeat(n, [fix=false])
 **Parameters**
 | name | type | description |
 |------|------|-------------|
-| this | `Array | String` | 순회할 객체 |
+| this | `Array \| String` | 순회할 객체 |
 | n | `Number` | 반복 횟수, `fix`가 `true`이면 최종 객체의 길이를 의미합니다. 실수가 허용됩니다. |
 | [fix=false] | `Boolean` | 객체의 길이를 고정할지 여부, 기본값은 `false`입니다. |
 
 **Returns**  
 | type | description |
 |------|-------------|
-| `Array | String` | 반복된 객체 |
+| `Array \| String` | 반복된 객체 |
 
 **Examples**
 ```js
@@ -243,14 +243,14 @@ _(this).replace(from, to)
 **Parameters**
 | name | type | description |
 |------|------|-------------|
-| this | `Array | String` | 순회할 객체 |
-| from | `Any` | 바꿀 값 |
-| to | `Any` | 바뀔 값 |
+| this | `Array \| String` | 순회할 객체 |
+| from | `*` | 바꿀 값 |
+| to | `*` | 바뀔 값 |
 
 **Returns**  
 | type | description |
 |------|-------------|
-| `Any` | 모든 `from`을 `to`로 바꾼 객체 |
+| `*` | 모든 `from`을 `to`로 바꾼 객체 |
 
 **Examples**
 ```js
@@ -267,7 +267,7 @@ _(this).rfind(value)
 **Parameters**
 | name | type | description |
 |------|------|-------------|
-| this | `Array | String` | 순회할 객체 |
+| this | `Array \| String` | 순회할 객체 |
 | value | `*` | 찾을 값 |
 
 **Returns**  
@@ -283,13 +283,14 @@ _([1, 2, 3]).rfind(4); // null
 
 # slice
 ```js
-slice([start=0], [end=length], [step=1])
+_(this).slice([start=0], [end=length], [step=1])
 ```
 배열의 [start, end) 구간에서 step만큼 건너뛴 배열을 반환합니다. Python의 slice 문법과 일치합니다.
 
 **Parameters**
 | name | type | description |
 |------|------|-------------|
+| this | `Array \| String` | 원본 객체 |
 | [start=0] | `Number` | 시작 인덱스, 음수일 경우 배열의 끝에서부터 센 인덱스 |
 | [end=length] | `Number` | 끝 인덱스, 음수일 경우 배열의 끝에서부터 센 인덱스 |
 | [step=1] | `Number` | 건너뛸 간격 |
@@ -313,7 +314,7 @@ _(this).startsWith(item)
 **Parameters**
 | name | type | description |
 |------|------|-------------|
-| this | `Array | String` | 순회할 객체 |
+| this | `Array \| String` | 순회할 객체 |
 | item | `*` | 비교할 요소 |
 
 **Returns**  
@@ -340,7 +341,7 @@ _(this).tail()
 **Parameters**
 | name | type | description |
 |------|------|-------------|
-| this | `Array | String` | 순회할 객체 |
+| this | `Array \| String` | 순회할 객체 |
 
 **Returns**  
 | type | description |
