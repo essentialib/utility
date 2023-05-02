@@ -106,6 +106,30 @@ _.len('abc'); // 3
 _.len(123); // 3
 ```
 
+# pretty
+```js
+_.pretty(item, [maxLength=18])
+```
+임의의 객체를 예쁘게 출력한 문자열을 반환합니다.
+
+**Parameters**
+| name | type | description |
+|------|------|-------------|
+| item | `*` | 출력할 객체  |
+| [maxLength=18] | `Number` | 한 줄의 최대 길이 |
+
+**Returns**  
+| type | description |
+|------|-------------|
+| `String` | `item`을 예쁘게 출력한 문자열을 반환합니다. |
+
+**Examples**
+```js
+_.pretty([1, 2, 3]); // [1, 2, 3]
+_.pretty({a: 1, b: 2, c: 3}); // {a: 1, b: 2, c: 3}
+_.pretty(new Set([1, 2, 3])); // Set {1, 2, 3}
+```
+
 # range
 ```js
 _.range([start=0], end, [step=1])

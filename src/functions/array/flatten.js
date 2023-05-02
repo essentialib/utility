@@ -4,8 +4,10 @@
  * @returns {Array} 한 번 평탄화된 배열
  * @example
  * _([1, [2, [3, [4]], 5]]).flatten(); // [1, 2, [3, [4]], 5]
- * _([1, [2, [3, [4]], 5]]).flatten().flatten(); // [1, 2, 3, [4], 5]   // FIXME: 이거 chaining 안됨
+ * _([1, [2, [3, [4]], 5]]).flatten().flatten(); // [1, 2, 3, [4], 5]
  */
+
+// FIXME: example2 이거 chaining 안됨
 
 function flatten() {
     return this.flattenDepth(1);

@@ -20,6 +20,17 @@ function isCyclic(input) {
     return dfs(input)
 }
 
+/**
+ * 임의의 객체를 예쁘게 출력한 문자열을 반환합니다.
+ * @param {*} item 출력할 객체 
+ * @param {Number} [maxLength=18] 한 줄의 최대 길이
+ * @returns {String} `item`을 예쁘게 출력한 문자열을 반환합니다.
+ * @example
+ * _.pretty([1, 2, 3]); // [1, 2, 3]
+ * _.pretty({a: 1, b: 2, c: 3}); // {a: 1, b: 2, c: 3}
+ * _.pretty(new Set([1, 2, 3])); // Set {1, 2, 3}
+ */
+
 function pretty(item, maxLength) {
     maxLength = maxLength || 18;    // 모바일 카카오톡에서 보내는 메시지 한 줄의 최대 길이가 18인 것 같네요?
 
