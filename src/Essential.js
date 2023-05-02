@@ -1,46 +1,54 @@
-const type = require('./functions/util/type.js');
-const equal = require('./functions/util/equal.js');
+let type = require('./functions/util/type.js');
+let equal = require('./functions/util/equal.js');
 
-const ANY = [Array, Object, String, Map, Set, RegExp, Symbol, Date, null, undefined];
 const HAS_INDEX = [Array, String];
 const HAS_KEY = [Array, Object, String, Map];
 const HAS_VALUE = [Array, Object, String, Map, Set];
-const SINGLE_VALUE = [Array, String, Set];
 const CAN_MATH = [Array, Set];
 
-function importf(func, supportTypes) {
+function importf(path, supportTypes) {
 	return function () {
 		if (type(supportTypes) == "function") {
 			supportTypes = [supportTypes];
 		}
 		
-		if (supportTypes.map(e => {
-			if (e == null) return "undefined";
-			else return e.name.toLowerCase();
-		}).includes(type(this.wrap))) {
-			if (this.__chaining__) {
-				this.wrap = func.apply(this, arguments);
+		let isConstructor = f => {
+			try {
+			  new f();
+			} catch (err) {
+				return false;
+			}
+			return true;
+		}
+
+		let constructorToName = f => {
+			if (f == null)
+				return "undefined";
+			else
+				return f.name.toLowerCase();
+		};
+
+		if (!supportTypes.every(isConstructor))
+			throw new TypeError("`supportTypes` should be constructor function");
+
+		if (supportTypes.map(constructorToName).includes(type(this.wrap))) {
+			let func = require(path);
+			let result = func.apply(this, arguments);
+
+			if (this.chaining) {
+				this.wrap = result;
 				return this;
 			} else {
-				return func.apply(this, arguments);
+				return result;
 			}
-		} else {
+		}
+		else {
 			throw new TypeError("function only supports " + supportTypes.toString() + " type");
 		}
 	};
 }
 
-//-----------------------------------------------
-
-function Essential(wrap) {
-	this.wrap = wrap;
-	this.equalf = equal;
-
-	this.__chaining__ = false;
-};
-
-Essential.prototype = {
-	// Array
+const array = {
 	flattenAll: importf('./functions/array/flattenAll.js', Array),	
 	flattenDepth: importf('./functions/array/flattenDepth.js', Array),	
 	flatten: importf('./functions/array/flatten.js', Array),	
@@ -53,9 +61,10 @@ Essential.prototype = {
 	unique: importf('./functions/array/unique.js', Array),	
 	uniqueBy: importf('./functions/array/uniqueBy.js', Array),	
 	pull: importf('./functions/array/pull.js', Array),	
-	pullAll: importf('./functions/array/pullAll.js', Array),	
+	pullAll: importf('./functions/array/pullAll.js', Array)
+}
 
-	// String
+const string = {
 	trim: importf('./functions/string/trim.js', String),	
 	trimLeft: importf('./functions/string/trimLeft.js', String),	
 	trimRight: importf('./functions/string/trimRight.js', String),	
@@ -63,9 +72,10 @@ Essential.prototype = {
 	f: importf('./functions/string/format.js', String),	
 	toCaseFormat: importf('./functions/string/toCaseFormat.js', String),	
 	toUpper: importf('./functions/string/toUpper.js', String),	
-	toLower: importf('./functions/string/toLower.js', String),	
-	
-	// Indexed
+	toLower: importf('./functions/string/toLower.js', String)
+}
+
+const indexed = {
 	at: importf('./functions/indexed/at.js', HAS_INDEX),	
 	nth: importf('./functions/indexed/at.js', HAS_INDEX),	
 	head: importf('./functions/indexed/head.js', HAS_INDEX),	
@@ -86,8 +96,9 @@ Essential.prototype = {
 	pad: importf('./functions/indexed/pad.js', HAS_INDEX),	
 	padStart: importf('./functions/indexed/padStart.js', HAS_INDEX),	
 	padEnd: importf('./functions/indexed/padEnd.js', HAS_INDEX),	
+}
 
-	// Collection
+const collection = {
 	each: importf('./functions/collection/each.js', HAS_VALUE),	
 	forEach: importf('./functions/collection/each.js', HAS_VALUE),	
 	reach: importf('./functions/collection/reach.js', HAS_VALUE),	
@@ -110,9 +121,10 @@ Essential.prototype = {
 	has: importf('./functions/collection/has.js', HAS_VALUE),	
 	includes: importf('./functions/collection/has.js', HAS_VALUE),	
 	contains: importf('./functions/collection/has.js', HAS_VALUE),	
-	freq: importf('./functions/collection/freq.js', HAS_VALUE),
-	
-	// Math
+	freq: importf('./functions/collection/freq.js', HAS_VALUE)
+}
+
+const math = {
 	sum: importf('./functions/math/sum.js', CAN_MATH),	
 	sumBy: importf('./functions/math/sumBy.js', CAN_MATH),	
 	product: importf('./functions/math/product.js', CAN_MATH),	
@@ -120,17 +132,37 @@ Essential.prototype = {
 	max: importf('./functions/math/max.js', CAN_MATH),	
 	maxBy: importf('./functions/math/maxBy.js', CAN_MATH),	
 	min: importf('./functions/math/min.js', CAN_MATH),	
-	minBy: importf('./functions/math/minBy.js', CAN_MATH),	
+	minBy: importf('./functions/math/minBy.js', CAN_MATH)
+}
 
-	// Util
+const util = {
 	isOf: require('./functions/util/isOf.js'),
 	chain: require('./functions/util/chain.js')
+}
+
+const self = {
+	equal: equal,
+	len: require('./functions/util/len.js'),
+	range: require('./functions/util/range.js'),
+	type: type
+}
+
+Essential = function (wrap) {
+	this.wrap = wrap;
+	this.equalf = equal;
+	this.chaining = false;
 };
 
-const _ = x => new Essential(x);
-_.equal = equal;
-_.len = require('./functions/util/len.js');
-_.range = require('./functions/util/range.js');
-_.type = type;
+Essentialf = function (obj) {
+	return new Essential(obj);
+};
 
-module.exports = _;
+Essential.prototype = Object.assign(Essential.prototype, array);
+Essential.prototype = Object.assign(Essential.prototype, string);
+Essential.prototype = Object.assign(Essential.prototype, indexed);
+Essential.prototype = Object.assign(Essential.prototype, collection);
+Essential.prototype = Object.assign(Essential.prototype, math);
+Essential.prototype = Object.assign(Essential.prototype, util);
+Essentialf = Object.assign(Essentialf, self);
+
+module.exports = Essentialf;

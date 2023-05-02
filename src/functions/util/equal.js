@@ -19,6 +19,9 @@ function equal(item1, item2) {
         return true;
     } else {
         switch (type(item1)) {
+            case 'number':
+            case 'string':
+                return item1 === item2;
             case 'date':
                 return item1.getTime() === item2.getTime();
             case 'regexp':
