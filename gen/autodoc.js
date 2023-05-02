@@ -1,3 +1,5 @@
+const _ = require('../src/Essential.js');
+
 const fs = require('fs');
 const path = require('path');
 const dirPath = path.join(__dirname, '../src/functions');
@@ -134,12 +136,12 @@ for (let dir in comments) {
 const home = 
 `**Essential 모듈 레퍼런스입니다.**
 
-Essential은 {dirCount}가지로 분류된 총합 {functionCount}개의 함수를 지원합니다.
+\`Essential.js\` 은 {dirCount}가지로 분류된 총합 {functionCount}개의 함수를 지원합니다.
 {dir}`;
 
 let homemd = home
   .replace('{dirCount}', dirs.length)
   .replace('{functionCount}', Object.values(function_count).reduce((a, b) => a + b))
-  .replace('{dir}', dirs.map(d => `- [${d}](https://github.com/kktbot-module/Essential/wiki/${d}) (${function_count[d]}개)`).join('\n'));
+  .replace('{dir}', dirs.map(d => `- [${_(d).toCaseFormat('U')}](https://github.com/kktbot-module/Essential/wiki/${d}) (${function_count[d]}개)`).join('\n'));
 
 fs.writeFileSync(path.join(__dirname, '../docs', 'home.md'), homemd);
