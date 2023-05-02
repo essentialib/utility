@@ -1,3 +1,5 @@
+const type = require('../util/type.js');
+
 /**
  * 배열의 요소 중 하나라도 조건을 만족하는지 확인합니다.
  * @this {Array | String | Object | Set | Map} 순회할 객체

@@ -18,7 +18,9 @@ function values() {
             this.each(v => ret[ret.length] = v);
             return ret;
         case 'object':
-            return new Set(Object.values(this.wrap));
+            let vs = [];
+            this.each(v => vs[vs.length] = v);
+            return new Set(vs);
         case 'map':
             return new Set(this.wrap.values());
         case 'set':

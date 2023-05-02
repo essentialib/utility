@@ -9,6 +9,7 @@ function isCyclic(input) {
         }
         seen.add(obj);
 
+        // FIXME: Object.entries() is not supported in KakaoTalkBot.
         return Object.entries(obj).some(([key, value]) => {
             const result = seen.has(value) ? true : isCyclic(value);
             seen.delete(result);
@@ -22,9 +23,9 @@ function isCyclic(input) {
 function pretty(item, maxLength) {
     maxLength = maxLength || 18;    // 모바일 카카오톡에서 보내는 메시지 한 줄의 최대 길이가 18인 것 같네요?
 
-    if (isCyclic(item)) {
-        throw new TypeError("cyclic object");
-    }
+    // if (isCyclic(item)) {
+    //     throw new TypeError("cyclic object");
+    // }
 
     switch (type(item)) {
         case 'number':
@@ -40,7 +41,7 @@ function pretty(item, maxLength) {
         case 'array':
             return '[' + item.map(v => pretty(v, maxLength)).join(', ') + ']';
         case 'object':
-            return '{' + Array.from(this(item).map((v, k) => pretty(k, maxLength) + ': ' + pretty(v, maxLength)).values()).join(', ') + '}';
+            return '{' + Array.from(this(this(item).map((v, k) => pretty(k, maxLength) + ': ' + pretty(v, maxLength))).values()).join(', ') + '}';
         case 'map':
             return 'Map {' + Array.from(this(item).map((v, k) => pretty(k, maxLength) + ' => ' + pretty(v, maxLength)).values()).join(', ') + '}';
         case 'set':
