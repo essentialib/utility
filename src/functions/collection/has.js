@@ -15,6 +15,7 @@ const type = require('../util/type.js');
 function has(item) {
     switch (type(this.wrap)) {
         case 'object':
+            return item in this.wrap;
         case 'map':
             return this.some((v, k) => this.equalf(k, item));
         default:

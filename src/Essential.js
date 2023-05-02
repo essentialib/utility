@@ -144,7 +144,8 @@ const self = {
 	equal: equal,
 	len: require('./functions/util/len.js'),
 	range: require('./functions/util/range.js'),
-	type: type
+	type: type,
+	pretty: require('./functions/util/pretty.js')
 }
 
 Essential = function (wrap) {

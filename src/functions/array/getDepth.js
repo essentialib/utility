@@ -7,6 +7,8 @@
  * _([1, [2, [3, [4]], 5]]).getDepth(); // 4
  */
 
+// FIXME: 이거 작동 잘 안됨
+
 function getDepth() {
     return (Array.isArray(this.wrap) ? 1 + Math.max.apply(null, this.map(getDepth)) : 0);
 };

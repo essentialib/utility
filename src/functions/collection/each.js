@@ -25,16 +25,16 @@ function each(viewer) {
             }
             break;
         case 'set':
-            for (let i = this.wrap[Symbol.iterator]().next(); !i.done; i = this.wrap[Symbol.iterator]().next()) {
-                isBreak = viewer(i.value) === false;
-                if (isBreak) break;
-            }
+            this.wrap.forEach(v => {
+                isBreak = viewer(v) === false;
+                if (isBreak) return false;
+            });
             break;
         case 'map':
-            for (let i = this.wrap[Symbol.iterator]().next(); !i.done; i = this.wrap[Symbol.iterator]().next()) {
-                isBreak = viewer(i.value[1], i.value[0]) === false;
-                if (isBreak) break;
-            }
+            this.wrap.forEach((v, k) => {
+                isBreak = viewer(v, k) === false;
+                if (isBreak) return false;
+            });
             break;
         case 'object':
             for (let key in this.wrap) {
