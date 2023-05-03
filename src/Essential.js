@@ -32,7 +32,7 @@ function importf(path, supportTypes) {
 			throw new TypeError("`supportTypes` should be constructor function");
 
 		if (supportTypes.map(constructorToName).includes(type(this.wrap))) {
-			let func = require(path);
+			let func = require(path);	
 			let result = func.apply(this, arguments);
 
 			if (this.chaining) {
@@ -43,7 +43,9 @@ function importf(path, supportTypes) {
 			}
 		}
 		else {
-			throw new TypeError("function only supports " + supportTypes.toString() + " type");
+			let pathSplited = path.split('/');
+			let funcName = pathSplited[pathSplited.length - 1].split('.')[0];
+			throw new TypeError("`" + funcName + "` function only supports " + supportTypes.map(e => e.name) + " type");
 		}
 	};
 }
@@ -148,13 +150,16 @@ const self = {
 	pretty: require('./functions/util/pretty.js')
 }
 
-Essential = function (wrap) {
+function Essential(wrap) {
+	if (wrap.constructor.name == "Essential")
+		return wrap;
+
 	this.wrap = wrap;
 	this.equalf = equal;
 	this.chaining = false;
 };
 
-Essentialf = function (obj) {
+function Essentialf(obj) {
 	return new Essential(obj);
 };
 

@@ -9,6 +9,10 @@
  */
 
 function chuck(size) {
+	if (size <= 0) {
+		throw new Error('size는 0보다 커야 합니다.');
+	}
+
 	let ret = new Array();
 	let start = 0;
 	let end = size;

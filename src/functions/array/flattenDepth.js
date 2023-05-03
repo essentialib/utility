@@ -9,6 +9,10 @@
  */
 
 function flattenDepth(depth) {
+	if (depth < 0) {
+		throw new Error('depth는 0보다 커야 합니다.');
+	}
+
 	let result = [];
 
 	const _flat = (arr, depth) => {

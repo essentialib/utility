@@ -1,3 +1,9 @@
+function getDepth(array) {
+    return Array.isArray(array) ? 
+            1 + Math.max.apply(null, array.map(getDepth)) :
+            0;
+};
+
 /**
  * 배열의 깊이를 구한다.
  * @this {Array} 깊이를 구할 배열
@@ -7,10 +13,6 @@
  * _([1, [2, [3, [4]], 5]]).getDepth(); // 4
  */
 
-// FIXME: 이거 작동 잘 안됨
-
-function getDepth() {
-    return (Array.isArray(this.wrap) ? 1 + Math.max.apply(null, this.map(getDepth)) : 0);
-};
-
-module.exports = getDepth;
+module.exports = function () {
+    return getDepth(this.wrap);
+}

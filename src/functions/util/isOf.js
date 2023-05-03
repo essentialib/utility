@@ -24,6 +24,7 @@ function isOf(typef) {
         throw new TypeError(typef.name + ' is not a constructor');
     }
 
+    
     return type(this.wrap) === typef.name.toLowerCase();
 }
 
