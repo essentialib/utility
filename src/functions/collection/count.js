@@ -1,3 +1,5 @@
+const filter = require('./filter.js');
+
 /**
  * 배열에 `item`이 몇개 있는지 반환합니다.
  * @this {Array | String | Object | Set | Map} 순회할 객체
@@ -12,7 +14,7 @@
  */
 
 function count(item) {
-    return this.filter(e => this.equalf(e, item)).length;
+    return filter.apply(this, [e => this.equalf(e, item)]).length;
 };
 
 module.exports = count;

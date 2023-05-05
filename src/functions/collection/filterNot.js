@@ -1,4 +1,5 @@
 const type = require('../util/type.js');
+const each = require('./each.js');
 
 /**
  * 객체에서 조건에 맞지 않는 요소들을 반환합니다.
@@ -17,43 +18,43 @@ function filterNot(condition) {
     switch (type(this.wrap)) {
         case 'set':
             ret = new Set();
-            this.each(e => {
+            each.apply(this, [e => {
                 if (!condition(e)) {
                     ret.add(e);
                 }
-            });
+            }]);
             break;
         case 'string':
             ret = '';
-            this.each((e, i) => {
+            each.apply(this, [(e, i) => {
                 if (!condition(e, i)) {
                     ret += e;
                 }
-            });
+            }]);
             break;
         case 'array':
             ret = [];
-            this.each((e, i) => {
+            each.apply(this, [(e, i) => {
                 if (!condition(e, i)) {
                     ret[ret.length] = e;
                 }
-            });
+            }]);
             break;
         case 'map':
             ret = new Map();
-            this.each((e, k) => {
+            each.apply(this, [(e, k) => {
                 if (!condition(e, k)) {
                     ret.set(k, e);
                 }
-            });
+            }]);
             break;
         case 'object':
             ret = {};
-            this.each((e, k) => {
+            each.apply(this, [(e, k) => {
                 if (!condition(e, k)) {
                     ret[k] = e;
                 }
-            });
+            }]);
             break;
     }
 

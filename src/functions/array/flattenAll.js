@@ -1,3 +1,5 @@
+const flattenDepth = require('./flattenDepth.js');
+
 /**
  * 배열을 모두 평탄화 합니다.
  * @this {Array} 평탄화할 배열
@@ -8,7 +10,7 @@
  */
 
 function flattenAll() {
-    return this.flattenDepth(Infinity);
+    return flattenDepth.apply(this, [Infinity]);
 };
 
 module.exports = flattenAll;

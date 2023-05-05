@@ -1,3 +1,5 @@
+const each = require('./each.js');
+
 /**
  * 객체의 요소들의 빈도수를 반환한다.
  * @this {Array | String | Object | Set | Map} 순회할 객체
@@ -7,12 +9,15 @@
  * _('abcacbc').freq(); // Map { a => 2, b => 2, c => 3 }
  */
 
-module.exports = function () {
+function freq() {
     let ret = new Map();
 
-    this.each(v => {
+    each.apply(this, [v => {
         if (ret.has(v)) ret.set(v, ret.get(v) + 1);
         else ret.set(v, 1);
-    });
+    }]);
+    
     return ret;
 }
+
+module.exports = freq;

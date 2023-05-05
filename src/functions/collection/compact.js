@@ -1,3 +1,5 @@
+const filter = require('./filter.js');
+
 /**
  * falsy한 값을 제거한 배열를 반환합니다.
  * @alias truthly
@@ -8,7 +10,7 @@
  */
 
 function compact() {
-    return this.filter(Boolean);
+    return filter.apply(this, [Boolean]);
 };
 
 module.exports = compact; 

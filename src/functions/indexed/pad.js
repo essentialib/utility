@@ -1,4 +1,5 @@
 const type = require('../util/type.js');
+const repeat = require('./repeat.js');
 
 /**
  * 객체를 `length`만큼 양쪽으로 패딩합니다.
@@ -13,6 +14,8 @@ const type = require('../util/type.js');
  * _('abc').pad(5, '1'); // '1abc1'
  */
 
+// REVIEW - 얘 chaining 불안하게 생김
+
 function pad(length, pad) { 
     let leftLength = Math.floor((length - this.wrap.length) / 2);
     let rightLength = length - this.wrap.length - leftLength;
@@ -22,12 +25,12 @@ function pad(length, pad) {
             pad = pad || ' ';
 
             return this.wrap.length >= length ?
-                this.wrap : (new this.constructor(pad)).repeat(leftLength, true) + this.wrap + (new this.constructor(pad)).repeat(rightLength, true);
+                this.wrap : repeat.apply(new this.constructor(pad), [leftLength, true]) + this.wrap + repeat.apply(new this.constructor(pad), [rightLength, true]);
         case 'Array':
             pad = pad || 0;
 
             return this.length >= length ?
-                this.wrap : (new this.constructor([pad])).repeat(leftLength, true).concat(this.wrap).concat((new this.constructor([pad])).repeat(rightLength, true));
+                this.wrap : repeat.apply(new this.constructor([pad]), [leftLength, true]).concat(this.wrap).concat(repeat.apply(new this.constructor([pad]), [rightLength, true]));
     }
 };
 

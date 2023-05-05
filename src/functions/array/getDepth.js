@@ -1,7 +1,11 @@
-function getDepth(array) {
-    return Array.isArray(array) ? 
-            1 + Math.max.apply(null, array.map(getDepth)) :
-            0;
+function getDepth() {
+    const dep = array => {
+        return Array.isArray(array) ? 
+                1 + Math.max.apply(null, array.map(dep)) :
+                0;
+    };
+
+    return dep(this.wrap);
 };
 
 /**
@@ -13,6 +17,4 @@ function getDepth(array) {
  * _([1, [2, [3, [4]], 5]]).getDepth(); // 4
  */
 
-module.exports = function () {
-    return getDepth(this.wrap);
-}
+module.exports = getDepth;

@@ -1,4 +1,5 @@
 const type = require('../util/type.js');
+const each = require('./each.js');
 
 function Item(key, value) {
     this.key = key;
@@ -24,17 +25,17 @@ function items() {
         case 'string':
             ret = [];
             // ex. [Item(0, 'a'), Item(1, 'b'), Item(2, 'c')]
-            this.each((v, i) => {
+            each.apply(this, [(v, i) => {
                 ret[ret.length] = new Item(i, v);
-            });
+            }]);
             break;
         case 'object':
         case 'map':
             ret = new Set();
             // ex. new Set(Item('a', 334), Item('b', 241), Item('x', "342"))
-            this.each((v, k) => {
+            each.apply(this, [(v, k) => {
                 ret.add(new Item(k, v));
-            });
+            }]);
             break;
     }
 

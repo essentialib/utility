@@ -1,4 +1,5 @@
 const type = require('../util/type.js');
+const some = require('./some.js');
 
 /**
  * 객체에 `item`이 있는지 확인합니다.
@@ -17,9 +18,9 @@ function has(item) {
         case 'object':
             return item in this.wrap;
         case 'map':
-            return this.some((v, k) => this.equalf(k, item));
+            return some.apply(this, [(_, k) => this.equalf(k, item)]);
         default:
-            return this.some(v => this.equalf(v, item));
+            return some.apply(this, [v => this.equalf(v, item)]);
     }
 }
 

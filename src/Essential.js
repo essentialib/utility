@@ -7,7 +7,7 @@ const HAS_VALUE = [Array, Object, String, Map, Set];
 const CAN_MATH = [Array, Set];
 
 function importf(path, supportTypes) {
-	return function () {
+	let f = function () {
 		if (type(supportTypes) == "function") {
 			supportTypes = [supportTypes];
 		}
@@ -31,8 +31,8 @@ function importf(path, supportTypes) {
 		if (!supportTypes.every(isConstructor))
 			throw new TypeError("`supportTypes` should be constructor function");
 
-		if (supportTypes.map(constructorToName).includes(type(this.wrap))) {
-			let func = require(path);	
+		if (equal(supportTypes, []) || supportTypes.map(constructorToName).includes(type(this.wrap))) {
+			let func = require(path);
 			let result = func.apply(this, arguments);
 
 			if (this.chaining) {
@@ -45,9 +45,13 @@ function importf(path, supportTypes) {
 		else {
 			let pathSplited = path.split('/');
 			let funcName = pathSplited[pathSplited.length - 1].split('.')[0];
-			throw new TypeError("`" + funcName + "` function only supports " + supportTypes.map(e => e.name) + " type");
+			throw new TypeError("`" + funcName + "` function only supports " + supportTypes.map(e => e.name) + " type, not " + type(this.wrap) + " type");
 		}
 	};
+
+	f.toString = () => "function " + path.split('/')[path.split('/').length - 1].split('.')[0] + "() { [code] }";
+	
+	return f;
 }
 
 const array = {
@@ -138,8 +142,8 @@ const math = {
 }
 
 const util = {
-	isOf: require('./functions/util/isOf.js'),
-	chain: require('./functions/util/chain.js')
+	isOf: importf('./functions/util/isOf.js', []),
+	chain: importf('./functions/util/chain.js', [])
 }
 
 const self = {
@@ -163,12 +167,7 @@ function Essentialf(obj) {
 	return new Essential(obj);
 };
 
-Essential.prototype = Object.assign(Essential.prototype, array);
-Essential.prototype = Object.assign(Essential.prototype, string);
-Essential.prototype = Object.assign(Essential.prototype, indexed);
-Essential.prototype = Object.assign(Essential.prototype, collection);
-Essential.prototype = Object.assign(Essential.prototype, math);
-Essential.prototype = Object.assign(Essential.prototype, util);
+Essential.prototype = Object.assign(Essential.prototype, array, string, indexed, collection, math, util);
 Essentialf = Object.assign(Essentialf, self);
 
 module.exports = Essentialf;

@@ -21,8 +21,14 @@
  * ) // 'John'
  */
 
-module.exports = function (callbackfn) {
+function chain(callbackfn) {
     let essential = this;
-    essential.__chaining__ = true;
-    return callbackfn(essential).wrap;
+    essential.chaining = true;
+
+    let result = callbackfn(essential);
+    result.chaining = false;
+
+    return result.wrap;
 }
+
+module.exports = chain;

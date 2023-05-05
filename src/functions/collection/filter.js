@@ -1,4 +1,5 @@
 const type = require('../util/type.js');
+const each = require('./each.js');
 
 /**
  * 객체의 요소를 조건에 맞게 필터링합니다.
@@ -17,43 +18,43 @@ function filter(condition) {
     switch (type(this.wrap)) {
         case 'set':
             ret = new Set();
-            this.each(e => {
+            each.apply(this, [e => {
                 if (condition(e)) {
                     ret.add(e);
                 }
-            });
+            }]);
             break;
         case 'string':
             ret = '';
-            this.each((e, i) => {
+            each.apply(this, [(e, i) => {
                 if (condition(e, i)) {
                     ret += e;
                 }
-            });
+            }]);
             break;
         case 'array':
             ret = [];
-            this.each((e, i) => {
+            each.apply(this, [(e, i) => {
                 if (condition(e, i)) {
                     ret[ret.length] = e;
                 }
-            });
+            }]);
             break;
         case 'map':
             ret = new Map();
-            this.each((v, k) => {
+            each.apply(this, [(v, k) => {
                 if (condition(v, k)) {
                     ret.set(k, v);
                 }
-            });
+            }]);
             break;
         case 'object':
             ret = {};
-            this.each((v, k) => {
+            each.apply(this, [(v, k) => {
                 if (condition(v, k)) {
                     ret[k] = v;
                 }
-            });
+            }]);
             break;
     }
 

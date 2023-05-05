@@ -4,7 +4,7 @@ const type = require('../util/type.js');
  * 객체에 `item`을 추가합니다.
  * @this {Array | String | Object | Set | Map} `item`을 추가할 객체
  * @param {*} item 추가할 값(key)
- * @param {*} [value] 추가할 값(value)
+ * @param {*} [item2] 추가할 값(value)
  * @returns {Array | String | Object | Set | Map} `item`을 this에 추가한 값
  * @example
  * _([0, 1, 2]).add(3) // [0, 1, 2, 3]
@@ -14,7 +14,7 @@ const type = require('../util/type.js');
  * _(new Map([['a', 1]])).add('b', 2) // Map { 'a' => 1, 'b' => 2 }
  */
 
-function add(item, value) {
+function add(item, item2) {
     switch (type(this.wrap)) {
         case 'array':
             let ret = this.wrap;
@@ -25,7 +25,7 @@ function add(item, value) {
             return this.wrap + item;
         case 'object':
             let obj = this.wrap;
-            obj[item] = value;
+            obj[item] = item2;
 
             return obj;
         case 'set':
@@ -35,7 +35,7 @@ function add(item, value) {
             return set;
         case 'map':
             let map = this.wrap;
-            map.set(item, value);
+            map.set(item, item2);
 
             return map;
     }

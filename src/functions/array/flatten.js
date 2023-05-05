@@ -1,3 +1,5 @@
+const flattenDepth = require('./flattenDepth.js');
+
 /**
  * 배열을 한 번 평탄화 합니다.
  * @this {Array} 평탄화할 배열
@@ -9,7 +11,7 @@
 // FIXME: example2 이거 chaining 안됨
 
 function flatten() {
-    return this.flattenDepth(1);
+    return flattenDepth.apply(this, [1]);
 };
 
 module.exports = flatten;

@@ -1,5 +1,6 @@
 const type = require('../util/type.js');
 
+// TODO: cyclic object detection
 function isCyclic(input) {
     const seen = new Set();
 
@@ -22,7 +23,7 @@ function isCyclic(input) {
 
 /**
  * 임의의 객체를 예쁘게 출력한 문자열을 반환합니다.
- * @param {*} item 출력할 객체 
+ * @param {*} obj 출력할 객체 
  * @param {Number} [maxLength=18] 한 줄의 최대 길이
  * @returns {String} `item`을 예쁘게 출력한 문자열을 반환합니다.
  * @example
@@ -31,43 +32,71 @@ function isCyclic(input) {
  * _.pretty(new Set([1, 2, 3])); // Set {1, 2, 3}
  */
 
-function pretty(item, maxLength) {
+function pretty(obj, maxLength) {
     maxLength = maxLength || 18;    // 모바일 카카오톡에서 보내는 메시지 한 줄의 최대 길이가 18인 것 같네요?
 
     // if (isCyclic(item)) {
     //     throw new TypeError("cyclic object");
     // }
 
-    switch (type(item)) {
+    let str = '';
+
+    switch (type(obj)) {
         case 'number':
-            return item.toString();
+            str = obj.toString();
+            break;
         case 'string':
-            return '"' + item + '"';
+            str = '"' + obj + '"';
+            break;
         case 'boolean':
-            return item ? 'true' : 'false';
+            str = obj ? 'true' : 'false';
+            break;
         case 'null':
-            return 'null';
+            str = 'null';
+            break;
         case 'undefined':
-            return 'undefined';
+            str = 'undefined';
+            break;
         case 'array':
-            return '[' + item.map(v => pretty(v, maxLength)).join(', ') + ']';
+            str = obj.map(v => pretty(v, maxLength)).join(', ');
+            str = '[ ' + str + ' ]';
+            break;
         case 'object':
-            return '{' + Array.from(this(this(item).map((v, k) => pretty(k, maxLength) + ': ' + pretty(v, maxLength))).values()).join(', ') + '}';
+            for (let key in obj) {
+                str += pretty(key, maxLength) + ': ' + pretty(obj[key], maxLength) + ', ';
+            }
+            str = '{ ' + str.slice(0, -2) + ' }';
+            break;
         case 'map':
-            return 'Map {' + Array.from(this(item).map((v, k) => pretty(k, maxLength) + ' => ' + pretty(v, maxLength)).values()).join(', ') + '}';
+            obj.forEach((v, k) => {
+                str += pretty(k, maxLength) + ' => ' + pretty(v, maxLength) + ', ';
+            });
+            str = 'Map { ' + str.slice(0, -2) + ' }';
+            break;
         case 'set':
-            return 'Set {' + Array.from(this(item).map(v => pretty(v, maxLength))).join(', ') + '}';
+            obj.forEach(v => {
+                str += pretty(v, maxLength) + ', ';
+            });
+            str = 'Set { ' + str.slice(0, -2) + ' }';
+            break;
         case 'function':
-            return item.toString().replace(/\n/g, '').replace(/\s+/g, ' ');
+            str = obj.toString().replace(/\n/g, '').replace(/\s+/g, ' ');
+            break;
         case 'symbol':
-            return item.toString();
+            str = obj.toString();
+            break;
         case 'regexp':
-            return item.toString();
+            str = obj.toString();
+            break;
         case 'date':
-            return item.toJSON();
+            str = obj.toJSON();
+            break;
         default:
-            return item.toString();
+            str = obj.toString();
+            break;
     }
+
+    return str;
 }
 
 module.exports = pretty;

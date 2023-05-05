@@ -1,3 +1,5 @@
+const reach = require('../collection/reach.js');
+
 /**
  * 객체에서 `value`와 일치하는 마지막 요소의 인덱스를 반환합니다.
  * @this {Array | String} 순회할 객체
@@ -10,12 +12,14 @@
 
 function rfind(value) {
     let pos = null;
-    this.reach((item, idx) => {
+
+    reach.apply(this, [(item, idx) => {
         if (this.equalf(item, value)) {
             pos = idx;
             return false;
         }
-    });
+    }]);
+    
     return pos;
 }
 

@@ -1,4 +1,5 @@
 const type = require('../util/type.js');
+const repeat = require('./repeat.js');
 
 /**
  * 객체를 `length`만큼 오른쪽으로 패딩합니다.
@@ -13,18 +14,20 @@ const type = require('../util/type.js');
  * _('abc').padEnd(5, '1'); // 'abc11'
  */
 
+// REVIEW - 얘 chaining 불안하게 생김
+
 function padEnd(length, pad) {
     switch (type(this.wrap)) {
         case 'String':
             pad = pad || ' ';
 
             return this.wrap.length >= length ?
-                this.wrap : this.wrap + (new this.constructor(pad)).repeat(length, true);
+                this.wrap : this.wrap + repeat.apply(new this.constructor(pad), [length, true]);
         case 'Array':
             pad = pad || [0];
 
             return this.length >= length ?
-                this.wrap : this.wrap.concat((new this.constructor(pad)).repeat(length, true));
+                this.wrap : this.wrap.concat(repeat.apply(new this.constructor(pad), [length, true]));
     }
 };
 

@@ -1,4 +1,5 @@
 const type = require('../util/type.js');
+const map = require('./map.js');
 
 /**
  * 객체의 키값들을 반환합니다.
@@ -15,7 +16,7 @@ function keys() {
     switch (type(this.wrap)) {
         case 'array':
         case 'string':
-            return this.map((v, i) => i);
+            return map.apply(this, [(_, i) => i]);
         case 'object':
             return new Set(Object.keys(this.wrap));
         case 'map':

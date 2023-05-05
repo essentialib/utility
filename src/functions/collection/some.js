@@ -1,4 +1,5 @@
 const type = require('../util/type.js');
+const each = require('./each.js');
 
 /**
  * 배열의 요소 중 하나라도 조건을 만족하는지 확인합니다.
@@ -15,20 +16,20 @@ function some(condition) {
     let ret = false;
     switch (type(this.wrap)) {
         case 'set':
-            this.each(v => {
+            each.apply(this, [v => {
                 if (condition(v)) {
                     ret = true;
                     return false;
                 }
-            });
+            }]);
             break;
         default:
-            this.each((v, i) => {
+            each.apply(this, [(v, i) => {
                 if (condition(v, i)) {
                     ret = true;
                     return false;
                 }
-            });
+            }]);
     }
 
     return ret;

@@ -1,4 +1,5 @@
 const type = require('../util/type.js');
+const each = require('./each.js');
 
 /**
  * 객체의 각 요소에 대해 주어진 함수를 호출한 결과를 모아 새로운 객체를 반환합니다.
@@ -18,34 +19,34 @@ function map(transformer) {
     switch (type(this.wrap)) {
         case 'set':
             ret = new Set();
-            this.each(e => {
+            each.apply(this, [e => {
                 ret.add(transformer(e));
-            });
+            }]);
             break;
         case 'string':
             ret = '';
-            this.each((e, i) => {
+            each.apply(this, [(e, i) => {
                 let t = transformer(e, i);
                 ret = this.wrap.substring(0, i) + t + this.wrap.substring(i + t.length);
-            });
+            }]);
             break;
         case 'array':
             ret = [];
-            this.each((e, i) => {
+            each.apply(this, [(e, i) => {
                 ret[i] = transformer(e, i);
-            });
+            }]);
             break;
         case 'map':
             ret = new Map();
-            this.each((v, k) => {
+            each.apply(this, [(v, k) => {
                 ret.set(k, transformer(v, k));
-            });
+            }]);
             break;
         case 'object':
             ret = {};
-            this.each((v, k) => {
+            each.apply(this, [(v, k) => {
                 ret[k] = transformer(v, k);
-            });
+            }]);
             break;
     }
 

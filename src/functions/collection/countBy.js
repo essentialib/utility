@@ -1,3 +1,5 @@
+const filter = require('./filter.js');
+
 /**
  * 객체에 `item`이 몇개 있는지 반환합니다.
  * @this {Array | String | Object | Set | Map} 순회할 객체
@@ -10,7 +12,7 @@
  */
 
 function countBy(item, by) {
-    return this.filter((v, k) => this.equalf(by(v, k), item)).length;
+    return filter.apply(this, [(v, k) => this.equalf(by(v, k), item)]).length;
 };
 
 module.exports = countBy; 

@@ -1,3 +1,5 @@
+const each = require('../collection/each.js');
+
 /**
  * 객체에서 `value`와 일치하는 첫번째 요소의 인덱스를 반환합니다.
  * @this {Array | String} 순회할 객체
@@ -11,12 +13,14 @@
 
 function find(value) {
     let pos = null;
-    this.each((item, idx) => {
+
+    each.apply(this, [(item, idx) => {
         if (this.equalf(item, value)) {
             pos = idx;
             return false;
         }
-    });
+    }]);
+
     return pos;
 }
 

@@ -6,7 +6,7 @@
  * @example
  * _([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]).uniqueBy(v => v % 2); // [1, 2]
  * _([1.1, 1.2, 2.1, 2.2, 3.1, 3.2]).uniqueBy(Math.floor); // [1.1, 2.1, 3.1]
- * _([{ a: 1 }, { a: 2 }, { a: 1 }]).uniqueBy(v => v.a); // [{ a: 1 }, { a: 2 }]
+ * _([{ a: 1 }, { a: 2 }, { a: 1 }]).uniqueBy(v => v.a);_([{ a: 1 }, { a: 2 }, { a: 1 }]).uniqueBy(v => v.a); // [{ a: 1 }, { a: 2 }]
  */
 
 function uniqueBy(by) {
@@ -16,7 +16,7 @@ function uniqueBy(by) {
             if (this.equalf(by(ret[i]), by(ret[j]))) {
                 ret.splice(j, 1);
                 j--;
-            }
+            }   
         }
     }
     return ret;

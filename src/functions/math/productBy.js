@@ -1,3 +1,5 @@
+const each = require('../collection/each.js');
+
 /**
  * 객체의 모든 요소의 곱을 반환합니다.
  * @this {Array | Set} 순회할 객체
@@ -11,9 +13,9 @@ function productBy(by) {
     by = by || (k => k);
 
     let result = 1;
-    this.each(v => {
+    each.apply(this, [v => {
         result *= by(v, this.wrap.length);
-    });
+    }]);
 
     return result;
 };

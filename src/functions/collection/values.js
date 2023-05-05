@@ -1,4 +1,5 @@
 const type = require('../util/type.js');
+const each = require('./each.js');
 
 /**
  * 객체의 값들을 반환합니다.
@@ -15,11 +16,11 @@ function values() {
         case 'array':
         case 'string':
             let ret = [];
-            this.each(v => ret[ret.length] = v);
+            each.apply(this, [v => ret[ret.length] = v]);
             return ret;
         case 'object':
             let vs = [];
-            this.each(v => vs[vs.length] = v);
+            each.apply(this, [v => vs[vs.length] = v]);
             return new Set(vs);
         case 'map':
             return new Set(this.wrap.values());

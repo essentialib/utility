@@ -1,3 +1,5 @@
+const each = require("../collection/each.js");
+
 /**
  * 객체의 요소 중 `by` 함수의 반환값이 가장 큰 요소를 반환합니다.
  * @this {Array | Set} 순회할 객체
@@ -11,11 +13,11 @@ function maxBy(by) {
     by = by || (v => v);
 
     let max = null;
-    this.each(v => {
+    each.apply(this, [v => {
         if (by(max) < by(v) || max === null) {
             max = v;
         }
-    });
+    }]);
     
     return max;
 };
