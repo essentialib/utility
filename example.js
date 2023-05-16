@@ -1,6 +1,6 @@
 var { Kkbot, Member, Room } = require('kkbot.js');
 var { Command, Commander, Pattern, Function, Type } = require('command.js');
-_ = require('Essential.js');
+_ = require('essential.js');
 
 var dalmeum = new Kkbot(BotManager.getCurrentBot());
 var commander = new Commander('/').setcommand({

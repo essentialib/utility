@@ -1,4 +1,4 @@
-const type = require('../util/type.js');
+const typename = require('../util/typename.js');
 
 /**
  * 각 요소에 대해 반환값이 없는 `viewer` 함수를 실행합니다.
@@ -16,27 +16,27 @@ const type = require('../util/type.js');
 
 function each(viewer) {
     let isBreak = false;
-    switch (type(this.wrap)) {
-        case 'array':
-        case 'string':
+    switch (typename(this.wrap)) {
+        case 'Array':
+        case 'String':
             for (let i = 0; i < this.wrap.length; i++) {
                 isBreak = viewer(this.wrap[i], i) === false;
                 if (isBreak) break;
             }
             break;
-        case 'set':
+        case 'Set':
             this.wrap.forEach(v => {
                 isBreak = viewer(v) === false;
                 if (isBreak) return false;
             });
             break;
-        case 'map':
+        case 'Map':
             this.wrap.forEach((v, k) => {
                 isBreak = viewer(v, k) === false;
                 if (isBreak) return false;
             });
             break;
-        case 'object':
+        case 'Object':
             for (let key in this.wrap) {
                 isBreak = viewer(this.wrap[key], key) === false;
                 if (isBreak) break;

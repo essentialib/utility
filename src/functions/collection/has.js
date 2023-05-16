@@ -1,4 +1,4 @@
-const type = require('../util/type.js');
+const typename = require('../util/typename.js');
 const some = require('./some.js');
 
 /**
@@ -14,10 +14,10 @@ const some = require('./some.js');
  */
 
 function has(item) {
-    switch (type(this.wrap)) {
-        case 'object':
+    switch (typename(this.wrap)) {
+        case 'Object':
             return item in this.wrap;
-        case 'map':
+        case 'Map':
             return some.apply(this, [(_, k) => this.equalf(k, item)]);
         default:
             return some.apply(this, [v => this.equalf(v, item)]);

@@ -1,4 +1,4 @@
-const type = require('./type.js');
+const typename = require('./typename.js');
 
 /**
  * `item`의 길이를 반환합니다. Object는 key의 개수를, Set과 Map은 size를, Array와 String은 length를, Number는 자릿수를 반환합니다. 그 외 타입의 객체는 size 또는 length 속성을 반환합니다.
@@ -16,16 +16,16 @@ const type = require('./type.js');
 function len(item) {
 	if (item == null) return undefined;
 
-	switch (type(item)) {
-		case "object":
+	switch (typename(item)) {
+		case "Object":
 			return Object.keys(item).length;
-		case "set":
-		case "map":
+		case "Set":
+		case "Map":
 			return item.size;
-		case "array":
-		case "string":
+		case "Array":
+		case "String":
 			return item.length;
-		case "number":
+		case "Number":
 			return Math.floor(Math.log10(item)) + 1;
 		default:
 			if (item.size !== undefined) return item.size;

@@ -1,4 +1,4 @@
-const type = require('../util/type.js');
+const typename = require('../util/typename.js');
 
 /**
  * 각 요소에 대해 반환값이 없는 `viewer` 함수를 역순으로 실행합니다.
@@ -12,24 +12,24 @@ const type = require('../util/type.js');
  */
 
 function reach(viewer) {
-    switch (type(this.wrap)) {
-        case 'array':
-        case 'string':
+    switch (typename(this.wrap)) {
+        case 'Array':
+        case 'String':
             for (let i = this.wrap.length - 1; i >= 0; i--) {
                 viewer(this.wrap[i], i);
             }
             break;
-        case 'map':
+        case 'Map':
             for (let i = this.wrap[Symbol.iterator]().next(); !i.done; i = this.wrap[Symbol.iterator]().next()) {
                 viewer(i.value[1], i.value[0]);
             }
             break;
-        case 'set':
+        case 'Set':
             for (let i = this.wrap[Symbol.iterator]().next(); !i.done; i = this.wrap[Symbol.iterator]().next()) {
                 viewer(i.value);
             }
             break;
-        case 'object':
+        case 'Object':
             for (let key in this.wrap) {
                 viewer(this.wrap[key], key);
             }

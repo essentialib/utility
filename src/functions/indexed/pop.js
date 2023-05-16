@@ -1,4 +1,4 @@
-const type = require('../util/type.js');
+const typename = require('../util/typename.js');
 
 /**
  * 배열의 `idx`번째 요소를 제거한 배열을 반환합니다.
@@ -20,11 +20,11 @@ function pop(idx) {
 
     let ret = this.wrap;
 
-    switch (type(ret)) {
-        case 'array':
+    switch (typename(ret)) {
+        case 'Array':
             ret.splice(idx, 1);
             break;
-        case 'string':
+        case 'String':
             ret = ret.slice(0, idx) + ret.slice(idx + 1);
             break;
     }

@@ -1,4 +1,4 @@
-const type = require('../util/type.js');
+const typename = require('../util/typename.js');
 const repeat = require('./repeat.js');
 
 /**
@@ -20,7 +20,7 @@ function pad(length, pad) {
     let leftLength = Math.floor((length - this.wrap.length) / 2);
     let rightLength = length - this.wrap.length - leftLength;
 
-    switch (type(this.wrap)) {
+    switch (typename(this.wrap)) {
         case 'String':
             pad = pad || ' ';
 

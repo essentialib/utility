@@ -1,4 +1,4 @@
-const type = require('../util/type.js');
+const typename = require('../util/typename.js');
 
 let formatByKey = (str, obj) => {
     return str.split('{{}}').map(s => s.replace(/{([^{}]+)}/g, (_, key) => obj[key.trim()])).join('{}');
@@ -34,8 +34,12 @@ let formatByIndex = (str, values) => {
 function format() {
     let args = Array.from(arguments);
 
-    if (args.length === 1 && type(args[0]) === "object") {
-        return formatByKey(this.wrap, args[0]);
+    if (args.length === 1) {
+        if (typename(args[0]) === 'Object') {
+            return formatByKey(this.wrap, args[0]);
+        } else if (typename(args[0]) === 'Array') {
+            return formatByIndex(this.wrap, args[0]);
+        }
     } else {
         return formatByIndex(this.wrap, args);
     }

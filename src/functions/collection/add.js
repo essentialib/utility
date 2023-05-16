@@ -1,4 +1,4 @@
-const type = require('../util/type.js');
+const typename = require('../util/typename.js');
 
 /**
  * 객체에 `item`을 추가합니다.
@@ -15,25 +15,25 @@ const type = require('../util/type.js');
  */
 
 function add(item, item2) {
-    switch (type(this.wrap)) {
-        case 'array':
+    switch (typename(this.wrap)) {
+        case 'Array':
             let ret = this.wrap;
             ret[ret.length] = item;
 
             return ret;
-        case 'string':
+        case 'String':
             return this.wrap + item;
-        case 'object':
+        case 'Object':
             let obj = this.wrap;
             obj[item] = item2;
 
             return obj;
-        case 'set':
+        case 'Set':
             let set = this.wrap;
             set.add(item);
 
             return set;
-        case 'map':
+        case 'Map':
             let map = this.wrap;
             map.set(item, item2);
 

@@ -158,7 +158,7 @@ _.range(10, 1, -2); // [10, 8, 6, 4, 2]
 
 # type
 ```js
-_.type(obj)
+_.typename(obj)
 ```
 객체의 타입 이름을 반환합니다.
 
@@ -174,18 +174,18 @@ _.type(obj)
 
 **Examples**
 ```js
-_.type(null); // 'null'
-_.type(undefined); // 'undefined'
-_.type(1); // 'number'
-_.type(''); // 'string'
-_.type(true); // 'boolean'
-_.type({}); // 'object'
-_.type([]); // 'array'
-_.type(new Set()); // 'set'
-_.type(new Map()); // 'map'
-_.type(new Date()); // 'date'
-_.type(/a/); // 'regexp'
-_.type(Symbol()); // 'symbol'
-_.type(function() {}); // 'function'
-_.type(new Error()); // 'error'
+_.typename(null); // 'null'
+_.typename(undefined); // 'undefined'
+_.typename(1); // 'number'
+_.typename(''); // 'string'
+_.typename(true); // 'boolean'
+_.typename({}); // 'object'
+_.typename([]); // 'array'
+_.typename(new Set()); // 'set'
+_.typename(new Map()); // 'map'
+_.typename(new Date()); // 'date'
+_.typename(/a/); // 'regexp'
+_.typename(Symbol()); // 'symbol'
+_.typename(function() {}); // 'function'
+_.typename(new Error()); // 'error'
 ```

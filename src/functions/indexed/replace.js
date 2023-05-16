@@ -1,4 +1,4 @@
-const type = require('../util/type.js');
+const typename = require('../util/typename.js');
 
 /**
  * 객체의 값 중 `from`을 전부 `to`로 바꿉니다.
@@ -12,7 +12,7 @@ const type = require('../util/type.js');
  */
 
 function replace(from, to) {
-    switch (type(this.wrap)) {
+    switch (typename(this.wrap)) {
         case "array":
             return this.wrap.map(e => {
                 if (this.equalf(e, from)) {

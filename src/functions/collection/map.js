@@ -1,4 +1,4 @@
-const type = require('../util/type.js');
+const typename = require('../util/typename.js');
 const each = require('./each.js');
 
 /**
@@ -16,33 +16,33 @@ const each = require('./each.js');
 function map(transformer) {
     let ret;
     
-    switch (type(this.wrap)) {
-        case 'set':
+    switch (typename(this.wrap)) {
+        case 'Set':
             ret = new Set();
             each.apply(this, [e => {
                 ret.add(transformer(e));
             }]);
             break;
-        case 'string':
+        case 'String':
             ret = '';
             each.apply(this, [(e, i) => {
                 let t = transformer(e, i);
                 ret = this.wrap.substring(0, i) + t + this.wrap.substring(i + t.length);
             }]);
             break;
-        case 'array':
+        case 'Array':
             ret = [];
             each.apply(this, [(e, i) => {
                 ret[i] = transformer(e, i);
             }]);
             break;
-        case 'map':
+        case 'Map':
             ret = new Map();
             each.apply(this, [(v, k) => {
                 ret.set(k, transformer(v, k));
             }]);
             break;
-        case 'object':
+        case 'Object':
             ret = {};
             each.apply(this, [(v, k) => {
                 ret[k] = transformer(v, k);

@@ -1,0 +1,9 @@
+.npmignore
+.idea
+README.md
+package.json
+example.js
+docs
+gen
+test
+LICENSE

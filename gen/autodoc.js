@@ -1,4 +1,4 @@
-const _ = require('../src/Essential.js');
+const _ = require('../src/essential.js');
 
 const fs = require('fs');
 const path = require('path');

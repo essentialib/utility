@@ -1,13 +1,15 @@
-const _ = require('../src/Essential.js');
+const E = require('../src/essential.js');
+
+function Int(n) {
+    this.n = n;
+}
 
 let person = [
-  {name: 'John', age: 21},
-  {name: 'Jane', age: 22},
-  {name: 'Mary', age: 23},
-];
+    { name: '홍길동', age: 20 },
+    { name: '김철수', age: 30 },
+    { name: '김영희', age: 40 }
+]
 
-x = _(person).chain(v =>
-   v.map(o => o.name).filter(n => n.startsWith('J')).head()
-) // 'John'
+let number = new Int(4);
 
-console.log(x);
+console.log(eval(E.typename(number)));

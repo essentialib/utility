@@ -1,4 +1,4 @@
-const type = require('../util/type.js');
+const typename = require('../util/typename.js');
 const map = require('./map.js');
 
 /**
@@ -13,13 +13,13 @@ const map = require('./map.js');
  */
 
 function keys() {
-    switch (type(this.wrap)) {
-        case 'array':
-        case 'string':
+    switch (typename(this.wrap)) {
+        case 'Array':
+        case 'String':
             return map.apply(this, [(_, i) => i]);
-        case 'object':
+        case 'Object':
             return new Set(Object.keys(this.wrap));
-        case 'map':
+        case 'Map':
             return new Set(this.wrap.keys());
     };
 }

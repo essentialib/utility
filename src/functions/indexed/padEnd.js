@@ -1,4 +1,4 @@
-const type = require('../util/type.js');
+const typename = require('../util/typename.js');
 const repeat = require('./repeat.js');
 
 /**
@@ -17,7 +17,7 @@ const repeat = require('./repeat.js');
 // REVIEW - 얘 chaining 불안하게 생김
 
 function padEnd(length, pad) {
-    switch (type(this.wrap)) {
+    switch (typename(this.wrap)) {
         case 'String':
             pad = pad || ' ';
 

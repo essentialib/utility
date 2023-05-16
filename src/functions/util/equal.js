@@ -1,4 +1,4 @@
-const type = require('./type.js');
+const typename = require('./typename.js');
 
 /**
  * 두 값이 같은지 비교합니다.
@@ -11,27 +11,27 @@ const type = require('./type.js');
  */
 
 function equal(item1, item2) {
-    if (type(item1) !== type(item2)) {
+    if (typename(item1) !== typename(item2)) {
         return false;
     } else if (item1 === item2) {
         return true;
     } else if (item1 !== item1 && item2 !== item2) {    // NaN is equal to NaN
         return true;
     } else {
-        switch (type(item1)) {
-            case 'number':
-            case 'string':
+        switch (typename(item1)) {
+            case 'Number':
+            case 'String':
                 return item1 === item2;
-            case 'date':
+            case 'Date':
                 return item1.getTime() === item2.getTime();
-            case 'regexp':
+            case 'RegExp':
                 return item1.source === item2.source &&
                     item1.global === item2.global &&
                     item1.ignoreCase === item2.ignoreCase &&
                     item1.multiline === item2.multiline;
-            case 'symbol':
+            case 'Symbol':
                 return item1.description === item2.description;
-            case 'set':
+            case 'Set':
                 if (item1.size !== item2.size) {
                     return false;
                 } else {
@@ -42,7 +42,7 @@ function equal(item1, item2) {
                     });
                     return true;
                 }   
-            case 'map':
+            case 'Map':
                 if (item1.size !== item2.size) {
                     return false;
                 } else {
@@ -53,7 +53,7 @@ function equal(item1, item2) {
                     });
                     return true;
                 }
-            case 'array':
+            case 'Array':
                 if (item1.length !== item2.length) {
                     return false;
                 } else {
@@ -64,7 +64,7 @@ function equal(item1, item2) {
                     }
                     return true;
                 }
-            case 'object':
+            case 'Object':
                 if (!equal(new Set(Object.keys(item1)), new Set(Object.keys(item2)))) {
                     return false;
                 } else {
@@ -76,7 +76,7 @@ function equal(item1, item2) {
                     return true;
                 }
             default:
-                throw new TypeError('cannot compare \'' + type(item1) + '\' type.');
+                throw new TypeError('cannot compare \'' + typename(item1) + '\' type.');
         }
     }
 };

@@ -1,4 +1,4 @@
-const type = require('../util/type.js');
+const typename = require('../util/typename.js');
 const each = require('./each.js');
 
 /**
@@ -14,8 +14,8 @@ const each = require('./each.js');
 
 function every(condition) {
     let ret = true;
-    switch (type(this.wrap)) {
-        case 'set':
+    switch (typename(this.wrap)) {
+        case 'Set':
             each.apply(this, [v => {
                 if (!condition(v)) {
                     ret = false;

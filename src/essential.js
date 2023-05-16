@@ -1,4 +1,4 @@
-let type = require('./functions/util/type.js');
+let typename = require('./functions/util/typename.js');
 let equal = require('./functions/util/equal.js');
 
 const HAS_INDEX = [Array, String];
@@ -8,7 +8,7 @@ const CAN_MATH = [Array, Set];
 
 function importf(path, supportTypes) {
 	let f = function () {
-		if (type(supportTypes) == "function") {
+		if (typename(supportTypes) === "Function") {
 			supportTypes = [supportTypes];
 		}
 		
@@ -25,13 +25,13 @@ function importf(path, supportTypes) {
 			if (f == null)
 				return "undefined";
 			else
-				return f.name.toLowerCase();
+				return f.name;
 		};
 
 		if (!supportTypes.every(isConstructor))
 			throw new TypeError("`supportTypes` should be constructor function");
 
-		if (equal(supportTypes, []) || supportTypes.map(constructorToName).includes(type(this.wrap))) {
+		if (equal(supportTypes, []) || supportTypes.map(constructorToName).includes(typename(this.wrap))) {
 			let func = require(path);
 			let result = func.apply(this, arguments);
 
@@ -45,7 +45,7 @@ function importf(path, supportTypes) {
 		else {
 			let pathSplited = path.split('/');
 			let funcName = pathSplited[pathSplited.length - 1].split('.')[0];
-			throw new TypeError("`" + funcName + "` function only supports " + supportTypes.map(e => e.name) + " type, not " + type(this.wrap) + " type");
+			throw new TypeError("`" + funcName + "` function only supports " + supportTypes.map(e => e.name) + " typename, not " + typename(this.wrap) + " typename");
 		}
 	};
 
@@ -79,6 +79,10 @@ const string = {
 	toCaseFormat: importf('./functions/string/toCaseFormat.js', String),	
 	toUpper: importf('./functions/string/toUpper.js', String),	
 	toLower: importf('./functions/string/toLower.js', String)
+}
+
+const func = {
+
 }
 
 const indexed = {
@@ -143,31 +147,32 @@ const math = {
 
 const util = {
 	isOf: importf('./functions/util/isOf.js', []),
-	chain: importf('./functions/util/chain.js', [])
+	chain: importf('./functions/util/chain.js', []),
+	isConstructor: importf('./functions/util/isConstructor.js', [])
 }
 
 const self = {
 	equal: equal,
 	len: require('./functions/util/len.js'),
 	range: require('./functions/util/range.js'),
-	type: type,
+	typename: typename,
 	pretty: require('./functions/util/pretty.js')
 }
 
 function Essential(wrap) {
-	if (wrap.constructor.name == "Essential")
+	if (wrap.constructor.name === "Essential")
 		return wrap;
 
 	this.wrap = wrap;
 	this.equalf = equal;
 	this.chaining = false;
-};
+}
 
 function Essentialf(obj) {
 	return new Essential(obj);
-};
+}
 
-Essential.prototype = Object.assign(Essential.prototype, array, string, indexed, collection, math, util);
+Essential.prototype = Object.assign(Essential.prototype, array, string, func, indexed, collection, math, util);
 Essentialf = Object.assign(Essentialf, self);
 
 module.exports = Essentialf;

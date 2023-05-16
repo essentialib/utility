@@ -1,4 +1,4 @@
-const type = require('../util/type.js');
+const typename = require('../util/typename.js');
 const each = require('./each.js');
 
 /**
@@ -12,19 +12,19 @@ const each = require('./each.js');
  */
 
 function values() {
-    switch (type(this.wrap)) {
-        case 'array':
-        case 'string':
+    switch (typename(this.wrap)) {
+        case 'Array':
+        case 'String':
             let ret = [];
             each.apply(this, [v => ret[ret.length] = v]);
             return ret;
-        case 'object':
+        case 'Object':
             let vs = [];
             each.apply(this, [v => vs[vs.length] = v]);
             return new Set(vs);
-        case 'map':
+        case 'Map':
             return new Set(this.wrap.values());
-        case 'set':
+        case 'Set':
             return this.wrap;
     };
 }

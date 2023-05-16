@@ -1,4 +1,4 @@
-const type = require('../util/type.js');
+const typename = require('./typename.js');
 
 // TODO: cyclic object detection
 function isCyclic(input) {
@@ -41,11 +41,11 @@ function pretty(obj, maxLength) {
 
     let str = '';
 
-    switch (type(obj)) {
-        case 'number':
+    switch (typename(obj)) {
+        case 'Number':
             str = obj.toString();
             break;
-        case 'string':
+        case 'String':
             str = '"' + obj + '"';
             break;
         case 'boolean':
@@ -57,23 +57,23 @@ function pretty(obj, maxLength) {
         case 'undefined':
             str = 'undefined';
             break;
-        case 'array':
+        case 'Array':
             str = obj.map(v => pretty(v, maxLength)).join(', ');
             str = '[ ' + str + ' ]';
             break;
-        case 'object':
+        case 'Object':
             for (let key in obj) {
                 str += pretty(key, maxLength) + ': ' + pretty(obj[key], maxLength) + ', ';
             }
             str = '{ ' + str.slice(0, -2) + ' }';
             break;
-        case 'map':
+        case 'Map':
             obj.forEach((v, k) => {
                 str += pretty(k, maxLength) + ' => ' + pretty(v, maxLength) + ', ';
             });
             str = 'Map { ' + str.slice(0, -2) + ' }';
             break;
-        case 'set':
+        case 'Set':
             obj.forEach(v => {
                 str += pretty(v, maxLength) + ', ';
             });
@@ -82,13 +82,13 @@ function pretty(obj, maxLength) {
         case 'function':
             str = obj.toString().replace(/\n/g, '').replace(/\s+/g, ' ');
             break;
-        case 'symbol':
+        case 'Symbol':
             str = obj.toString();
             break;
-        case 'regexp':
+        case 'RegExp':
             str = obj.toString();
             break;
-        case 'date':
+        case 'Date':
             str = obj.toJSON();
             break;
         default:

@@ -1,4 +1,4 @@
-const type = require('../util/type.js');
+const typename = require('../util/typename.js');
 const each = require('./each.js');
 
 /**
@@ -15,8 +15,8 @@ const each = require('./each.js');
 function filter(condition) {
     let ret;
     
-    switch (type(this.wrap)) {
-        case 'set':
+    switch (typename(this.wrap)) {
+        case 'Set':
             ret = new Set();
             each.apply(this, [e => {
                 if (condition(e)) {
@@ -24,7 +24,7 @@ function filter(condition) {
                 }
             }]);
             break;
-        case 'string':
+        case 'String':
             ret = '';
             each.apply(this, [(e, i) => {
                 if (condition(e, i)) {
@@ -32,7 +32,7 @@ function filter(condition) {
                 }
             }]);
             break;
-        case 'array':
+        case 'Array':
             ret = [];
             each.apply(this, [(e, i) => {
                 if (condition(e, i)) {
@@ -40,7 +40,7 @@ function filter(condition) {
                 }
             }]);
             break;
-        case 'map':
+        case 'Map':
             ret = new Map();
             each.apply(this, [(v, k) => {
                 if (condition(v, k)) {
@@ -48,7 +48,7 @@ function filter(condition) {
                 }
             }]);
             break;
-        case 'object':
+        case 'Object':
             ret = {};
             each.apply(this, [(v, k) => {
                 if (condition(v, k)) {

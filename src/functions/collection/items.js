@@ -1,4 +1,4 @@
-const type = require('../util/type.js');
+const typename = require('../util/typename.js');
 const each = require('./each.js');
 
 function Item(key, value) {
@@ -20,17 +20,17 @@ function Item(key, value) {
 function items() {
     let ret;
 
-    switch (type(this.wrap)) {
-        case 'array':
-        case 'string':
+    switch (typename(this.wrap)) {
+        case 'Array':
+        case 'String':
             ret = [];
             // ex. [Item(0, 'a'), Item(1, 'b'), Item(2, 'c')]
             each.apply(this, [(v, i) => {
                 ret[ret.length] = new Item(i, v);
             }]);
             break;
-        case 'object':
-        case 'map':
+        case 'Object':
+        case 'Map':
             ret = new Set();
             // ex. new Set(Item('a', 334), Item('b', 241), Item('x', "342"))
             each.apply(this, [(v, k) => {

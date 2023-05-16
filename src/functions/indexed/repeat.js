@@ -1,4 +1,4 @@
-const type = require('../util/type.js');
+const typename = require('../util/typename.js');
 
 /**
  * 객체을 반복해서 연장합니다.
@@ -27,7 +27,7 @@ function repeat(n, fix) {
         throw new Error("The length of string should be integer.");
     }
 
-    switch (type(this.wrap)) {
+    switch (typename(this.wrap)) {
         case "string":
             ret = "";
             for (let i = 0; i < length; i++) {
