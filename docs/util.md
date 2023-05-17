@@ -2,13 +2,13 @@
 ```js
 _(this).chain(callbackfn)
 ```
-Essential 함수를 체이닝으로 사용할 수 있게 해주는 함수입니다.
+Essential_old 함수를 체이닝으로 사용할 수 있게 해주는 함수입니다.
 
 **Parameters**
 | name | type | description |
 |------|------|-------------|
 | this | `*` | 체이닝을 시작할 대상 객체 |
-| callbackfn | `Function` | 체이닝 콜백 함수, 첫 번째 인자로 Essential 객체를 받습니다. |
+| callbackfn | `Function` | 체이닝 콜백 함수, 첫 번째 인자로 Essential_old 객체를 받습니다. |
 
 **Returns**  
 | type | description |

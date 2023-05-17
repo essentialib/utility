@@ -1,5 +1,5 @@
 {
   "name": "essentialib",
   "version": "1.0.0-alpha-6",
-  "main": "./src/essential.js"
+  "main": "src/essential_old.js"
 }

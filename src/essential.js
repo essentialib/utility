@@ -1,178 +1,206 @@
-let typename = require('./functions/util/typename.js');
-let equal = require('./functions/util/equal.js');
+const typename = require("./functions/util/typename");
+const defaults = {
 
-const HAS_INDEX = [Array, String];
-const HAS_KEY = [Array, Object, String, Map];
-const HAS_VALUE = [Array, Object, String, Map, Set];
-const CAN_MATH = [Array, Set];
+};
 
-function importf(path, supportTypes) {
-	let f = function () {
-		if (typename(supportTypes) === "Function") {
-			supportTypes = [supportTypes];
-		}
-		
-		let isConstructor = f => {
-			try {
-			  new f();
-			} catch (err) {
-				return false;
-			}
-			return true;
-		}
+function Essential(wrapped) {
+    Object.defineProperty(this, 'chaining', {
+        value: false,
+        writable: false
+    });
 
-		let constructorToName = f => {
-			if (f == null)
-				return "undefined";
-			else
-				return f.name;
-		};
-
-		if (!supportTypes.every(isConstructor))
-			throw new TypeError("`supportTypes` should be constructor function");
-
-		if (equal(supportTypes, []) || supportTypes.map(constructorToName).includes(typename(this.wrap))) {
-			let func = require(path);
-			let result = func.apply(this, arguments);
-
-			if (this.chaining) {
-				this.wrap = result;
-				return this;
-			} else {
-				return result;
-			}
-		}
-		else {
-			let pathSplited = path.split('/');
-			let funcName = pathSplited[pathSplited.length - 1].split('.')[0];
-			throw new TypeError("`" + funcName + "` function only supports " + supportTypes.map(e => e.name) + " typename, not " + typename(this.wrap) + " typename");
-		}
-	};
-
-	f.toString = () => "function " + path.split('/')[path.split('/').length - 1].split('.')[0] + "() { [code] }";
-	
-	return f;
+    this.value = function () {
+        return wrapped;
+    };
 }
 
-const array = {
-	flattenAll: importf('./functions/array/flattenAll.js', Array),	
-	flattenDepth: importf('./functions/array/flattenDepth.js', Array),	
-	flatten: importf('./functions/array/flatten.js', Array),	
-	getDepth: importf('./functions/array/getDepth.js', Array),	
-	push: importf('./functions/array/push.js', Array),	
-	append: importf('./functions/array/push.js', Array),	
-	pushAll: importf('./functions/array/pushAll.js', Array),	
-	appendAll: importf('./functions/array/pushAll.js', Array),	
-	chuck: importf('./functions/array/chuck.js', Array),	
-	unique: importf('./functions/array/unique.js', Array),	
-	uniqueBy: importf('./functions/array/uniqueBy.js', Array),	
-	pull: importf('./functions/array/pull.js', Array),	
-	pullAll: importf('./functions/array/pullAll.js', Array)
+$ = value => new Essential(value);
+
+$ = Object.assign($, {
+    /**
+     * 상수 함수입니다. `item`을 그대로 반환합니다.
+     * @example
+     * $.identity(1); // 1
+     * $.identity('abc'); // 'abc'
+     * 
+     * @param {*} item 임의의 값
+     * @returns {*} `item`을 그대로 반환합니다.
+     */
+    identity(item) {
+        return item;
+    },
+
+    /**
+     * `item`이 생성자 함수인지 여부를 반환합니다.
+     * @example
+     * $.isConstructor(Array); // true
+     * $.isConstructor(String); // true
+     * $.isConstructor(x => x + 2); // false
+     * 
+     * @param {*} item 임의의 값
+     * @returns {boolean} `item`이 생성자 함수인지 여부
+     */
+    isConstructor(item) {
+        try {
+            new item();
+        } catch (err) {
+            if (err.message.includes('is not a constructor')) {
+                return false;
+            }
+        }
+        return true;
+    },
+
+    /**
+     * `item`의 타입 이름을 반환합니다.
+     * @example
+     * $.typename(1); // 'Number'
+     * $.typename('abc'); // 'String'
+     * $.typename([1, 2, 3]); // 'Array'
+     * 
+     * @param {*} item 임의의 값
+     * @returns {string} `item`의 타입 이름
+     */
+    typename(item) {
+        if (item === null)
+            return 'null';
+        else if (item === undefined)
+            return 'undefined';
+
+        let typeofString = typeof item;
+        if (typeofString !== "object")
+            return (typeofString)[0].toUpperCase() + (typeofString).slice(1);
+
+        let objectString = Object.prototype.toString.call(item).slice(8, -1).toLowerCase();
+        if (objectString !== "object")
+            return objectString[0].toUpperCase() + objectString.slice(1);
+
+        let constructorString = item.constructor.toString();
+        return constructorString.substring(9, constructorString.indexOf("("));
+    },
+
+    /**
+     * `item`이 `constructor`의 인스턴스인지 여부를 반환합니다.
+     *  @example
+     *  $.instanceof([3, 4, 5], Array); // true
+     *  $.instanceof('abc', String); // true
+     *  $.instanceof(123, Number); // true
+     *
+     * @param {*} item 임의의 값
+     * @param {function} constructor 생성자 함수
+     * @returns {boolean} `item`이 `constructor`의 인스턴스인지 여부
+     */
+    instanceof(item, constructor) {
+        if ($.isConstructor(constructor) === false) {
+            throw new TypeError('`constructor`는 생성자 함수여야 합니다.');
+        }
+
+        return $.typename(item) === constructor.name;
+    },
+
+    isIterable(item) {
+        return $.instanceof(item, Object) || $.instanceof(item[Symbol.iterator], Function);
+        // Object.entries() 가 Object[Symbol.iterator] 기능을 해주기 때문에.
+    },
+
+    equal(a, b) {
+        if ($.typename(a) !== $.typename(b)) {
+            return false;
+        } else if (a === b) {
+            return true;
+        } else if (a !== a && b !== b) {    // NaN !== NaN을 이용
+            return true;
+        } else {
+            switch ($.typename(a)) {
+                case 'Number':
+                case 'String':
+                    return a === b;
+                case 'Date':
+                    return a.getTime() === b.getTime();
+                case 'RegExp':
+                    return a.source === b.source &&
+                        a.global === b.global &&
+                        a.ignoreCase === b.ignoreCase &&
+                        a.multiline === b.multiline;
+                case 'Symbol':
+                    return a.description === b.description;
+                case 'Set':
+                    if (a.size !== b.size) {
+                        return false;
+                    } else {
+                        a.forEach(e => {
+                            if (!b.has(e)) {
+                                return false;
+                            }
+                        });
+                        return true;
+                    }
+                case 'Map':
+                    if (a.size !== b.size) {
+                        return false;
+                    } else {
+                        a.forEach((v, k) => {
+                            if (!b.has(k) || !$.equal(v, b.get(k))) {
+                                return false;
+                            }
+                        });
+                        return true;
+                    }
+                case 'Array':
+                    if (a.length !== b.length) {
+                        return false;
+                    } else {
+                        for (let i = 0; i < a.length; i++) {
+                            if (!$.equal(a[i], b[i])) {
+                                return false;
+                            }
+                        }
+                        return true;
+                    }
+                case 'Object':
+                    if (!$.equal(new Set(Object.keys(a)), new Set(Object.keys(b)))) {
+                        return false;
+                    } else {
+                        for (let key in a) {
+                            if (!$.equal(a[key], b[key])) {
+                                return false;
+                            }
+                        }
+                        return true;
+                    }
+                default:
+                    throw new TypeError('cannot compare \'' + $.typename(a) + '\' type.');
+            }
+        }
+    },
+
+    len(item) {
+        switch ($.typename(item)) {
+            case "Object":
+                return Object.keys(item).length;
+            case "Set":
+            case "Map":
+                return item.size;
+            case "Array":
+            case "String":
+                return item.length;
+            case "Number":
+                return Math.floor(Math.log10(item)) + 1;
+            default:
+                if (item == null) return undefined;
+                else if ('size' in item) return item.size;
+                else if ('length' in item) return item.length;
+                else return undefined;
+        }
+    }
+});
+
+for (let key in $) {
+    Essential.prototype[key] = function () {
+        let args = Array.from(arguments);
+        args.unshift(this.value());
+        return new Essential($[key].apply(null, args));
+    }
 }
 
-const string = {
-	trim: importf('./functions/string/trim.js', String),	
-	trimLeft: importf('./functions/string/trimLeft.js', String),	
-	trimRight: importf('./functions/string/trimRight.js', String),	
-	format: importf('./functions/string/format.js', String),	
-	f: importf('./functions/string/format.js', String),	
-	toCaseFormat: importf('./functions/string/toCaseFormat.js', String),	
-	toUpper: importf('./functions/string/toUpper.js', String),	
-	toLower: importf('./functions/string/toLower.js', String)
-}
-
-const func = {
-
-}
-
-const indexed = {
-	at: importf('./functions/indexed/at.js', HAS_INDEX),	
-	nth: importf('./functions/indexed/at.js', HAS_INDEX),	
-	head: importf('./functions/indexed/head.js', HAS_INDEX),	
-	first: importf('./functions/indexed/head.js', HAS_INDEX),	
-	front: importf('./functions/indexed/head.js', HAS_INDEX),	
-	tail: importf('./functions/indexed/tail.js', HAS_INDEX),	
-	last: importf('./functions/indexed/tail.js', HAS_INDEX),	
-	back: importf('./functions/indexed/tail.js', HAS_INDEX),	
-	pop: importf('./functions/indexed/pop.js', HAS_INDEX),	
-	drop: importf('./functions/indexed/pop.js', HAS_INDEX),	
-	find: importf('./functions/indexed/find.js', HAS_INDEX),	
-	rfind: importf('./functions/indexed/rfind.js', HAS_INDEX),	
-	slice: importf('./functions/indexed/slice.js', HAS_INDEX),	
-	replace: importf('./functions/indexed/replace.js', HAS_INDEX),	
-	repeat: importf('./functions/indexed/repeat.js', HAS_INDEX),	
-	startsWith: importf('./functions/indexed/startsWith.js', HAS_INDEX),	
-	endsWith: importf('./functions/indexed/endsWith.js', HAS_INDEX),	
-	pad: importf('./functions/indexed/pad.js', HAS_INDEX),	
-	padStart: importf('./functions/indexed/padStart.js', HAS_INDEX),	
-	padEnd: importf('./functions/indexed/padEnd.js', HAS_INDEX),	
-}
-
-const collection = {
-	each: importf('./functions/collection/each.js', HAS_VALUE),	
-	forEach: importf('./functions/collection/each.js', HAS_VALUE),	
-	reach: importf('./functions/collection/reach.js', HAS_VALUE),	
-	rforEach: importf('./functions/collection/reach.js', HAS_VALUE),	
-	map: importf('./functions/collection/map.js', HAS_VALUE),	
-	transform: importf('./functions/collection/map.js', HAS_VALUE),	
-	filter: importf('./functions/collection/filter.js', HAS_VALUE),	
-	filterNot: importf('./functions/collection/filterNot.js', HAS_VALUE),	
-	every: importf('./functions/collection/every.js', HAS_VALUE),	
-	some: importf('./functions/collection/some.js', HAS_VALUE),	
-	count: importf('./functions/collection/count.js', HAS_VALUE),	
-	countBy: importf('./functions/collection/countBy.js', HAS_VALUE),	
-	keys: importf('./functions/collection/keys.js', HAS_KEY),	
-	values: importf('./functions/collection/values.js', HAS_VALUE),	
-	items: importf('./functions/collection/items.js', HAS_KEY),	
-	pairs: importf('./functions/collection/items.js', HAS_KEY),	
-	compact: importf('./functions/collection/compact.js', HAS_VALUE),	
-	truthly: importf('./functions/collection/compact.js', HAS_VALUE),	
-	add: importf('./functions/collection/add.js', HAS_VALUE),	
-	has: importf('./functions/collection/has.js', HAS_VALUE),	
-	includes: importf('./functions/collection/has.js', HAS_VALUE),	
-	contains: importf('./functions/collection/has.js', HAS_VALUE),	
-	freq: importf('./functions/collection/freq.js', HAS_VALUE)
-}
-
-const math = {
-	sum: importf('./functions/math/sum.js', CAN_MATH),	
-	sumBy: importf('./functions/math/sumBy.js', CAN_MATH),	
-	product: importf('./functions/math/product.js', CAN_MATH),	
-	productBy: importf('./functions/math/productBy.js', CAN_MATH),	
-	max: importf('./functions/math/max.js', CAN_MATH),	
-	maxBy: importf('./functions/math/maxBy.js', CAN_MATH),	
-	min: importf('./functions/math/min.js', CAN_MATH),	
-	minBy: importf('./functions/math/minBy.js', CAN_MATH)
-}
-
-const util = {
-	isOf: importf('./functions/util/isOf.js', []),
-	chain: importf('./functions/util/chain.js', []),
-	isConstructor: importf('./functions/util/isConstructor.js', [])
-}
-
-const self = {
-	equal: equal,
-	len: require('./functions/util/len.js'),
-	range: require('./functions/util/range.js'),
-	typename: typename,
-	pretty: require('./functions/util/pretty.js')
-}
-
-function Essential(wrap) {
-	if (wrap.constructor.name === "Essential")
-		return wrap;
-
-	this.wrap = wrap;
-	this.equalf = equal;
-	this.chaining = false;
-}
-
-function Essentialf(obj) {
-	return new Essential(obj);
-}
-
-Essential.prototype = Object.assign(Essential.prototype, array, string, func, indexed, collection, math, util);
-Essentialf = Object.assign(Essentialf, self);
-
-module.exports = Essentialf;
+module.exports = $;
