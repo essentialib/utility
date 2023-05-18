@@ -1,8 +1,3 @@
-const typename = require("./functions/util/typename");
-const defaults = {
-
-};
-
 function Essential(wrapped) {
     Object.defineProperty(this, 'chaining', {
         value: false,
@@ -30,25 +25,19 @@ $ = Object.assign($, {
         return item;
     },
 
-    /**
-     * `item`이 생성자 함수인지 여부를 반환합니다.
-     * @example
-     * $.isConstructor(Array); // true
-     * $.isConstructor(String); // true
-     * $.isConstructor(x => x + 2); // false
-     * 
-     * @param {*} item 임의의 값
-     * @returns {boolean} `item`이 생성자 함수인지 여부
-     */
-    isConstructor(item) {
-        try {
-            new item();
-        } catch (err) {
-            if (err.message.includes('is not a constructor')) {
-                return false;
-            }
-        }
-        return true;
+    pair(first, second, firstName, secondName) {
+        firstName ||= 'first';
+        secondName ||= 'second';
+
+        let ret = {};
+        ret[firstName] = first;
+        ret[secondName] = second;
+
+        return ret;
+    },
+
+    hashPair(key, value) {
+        return $.pair(key, value, 'key', 'value');
     },
 
     /**
@@ -79,6 +68,89 @@ $ = Object.assign($, {
         return constructorString.substring(9, constructorString.indexOf("("));
     },
 
+    isNumber(item) {
+        return $.typename(item) === 'Number';
+    },
+
+    isString(item) {
+        return $.typename(item) === 'String';
+    },
+
+    isBoolean(item) {
+        return $.typename(item) === 'Boolean';
+    },
+
+    isFunction(item) {
+        return $.typename(item) === 'Function';
+    },
+
+    isObject(item) {
+        return $.typename(item) === 'Object';
+    },
+
+    isArray(item) {
+        return $.typename(item) === 'Array';
+    },
+
+    isDate(item) {
+        return $.typename(item) === 'Date';
+    },
+
+    isRegExp(item) {
+        return $.typename(item) === 'RegExp';
+    },
+
+    isSymbol(item) {
+        return $.typename(item) === 'Symbol';
+    },
+
+    isSet(item) {
+        return $.typename(item) === 'Set';
+    },
+
+    isMap(item) {
+        return $.typename(item) === 'Map';
+    },
+
+    isNull(item) {
+        return $.typename(item) === 'null';
+    },
+
+    isUndefined(item) {
+        return $.typename(item) === 'undefined';
+    },
+
+    isNil(item) {
+        let typename = $.typename(item);
+        return typename === 'null' || typename === 'undefined';
+    },
+
+    isConstructor(item) {
+        try {
+            new item();
+        } catch (err) {
+            if (err.message.includes('is not a constructor')) {
+                return false;
+            }
+        }
+        return true;
+    },
+
+    isIterable(item) {
+        return $.typename(item) === 'Object' || $.typename(item[Symbol.iterator]) === 'Function';
+        // Object.entries() 가 Object[Symbol.iterator] 기능을 해주기 때문에 Object도 iterable이라고 생각함.
+    },
+
+    isIndexable(item) {
+        let typename = $.typename(item);
+        return typename === 'Array' || typename === 'String';
+    },
+
+    isHashTable(item) {
+        let typename = $.typename(item);
+        return typename === 'Object' || typename === 'Map';
+    },
+
     /**
      * `item`이 `constructor`의 인스턴스인지 여부를 반환합니다.
      *  @example
@@ -90,7 +162,7 @@ $ = Object.assign($, {
      * @param {function} constructor 생성자 함수
      * @returns {boolean} `item`이 `constructor`의 인스턴스인지 여부
      */
-    instanceof(item, constructor) {
+    is(item, constructor) {
         if ($.isConstructor(constructor) === false) {
             throw new TypeError('`constructor`는 생성자 함수여야 합니다.');
         }
@@ -98,9 +170,44 @@ $ = Object.assign($, {
         return $.typename(item) === constructor.name;
     },
 
-    isIterable(item) {
-        return $.instanceof(item, Object) || $.instanceof(item[Symbol.iterator], Function);
-        // Object.entries() 가 Object[Symbol.iterator] 기능을 해주기 때문에.
+    getIterator(item) {
+        if ($.isIterable(item) === false) {
+            throw new TypeError(item + ' is not iterable');
+        }
+
+        if (!$.isHashTable(item))
+            return item[Symbol.iterator]();
+
+        if ($.isObject(item))
+            return function () {
+                const keys = Object.keys(item);
+                let index = 0;
+
+                return {
+                    next() {
+                        if (index < keys.length) {
+                            return { value: $.hashPair(item[keys[index]], keys[index++]), done: false };
+                        } else {
+                            return { done: true };
+                        }
+                    }
+                }
+            }();
+        else
+            return function () {
+                const items = Array.from(item);
+                let index = 0;
+
+                return {
+                    next() {
+                        if (index < items.length) {
+                            return { value: $.hashPair(items[index][0], items[index++][1]), done: false };
+                        } else {
+                            return { done: true };
+                        }
+                    }
+                }
+            }();
     },
 
     equal(a, b) {
@@ -192,7 +299,108 @@ $ = Object.assign($, {
                 else if ('length' in item) return item.length;
                 else return undefined;
         }
-    }
+    },
+
+    keys(item) {
+        if (!$.isIterable(item)) {
+            throw new TypeError(item + ' is not iterable');
+        }
+
+        if ($.isIndexable(item)) {
+            let ret = [];
+            for (let i = 0; i < item.length; i++) {
+                ret.push(i);
+            }
+            return ret;
+        } else if ($.isObject(item)) {
+            return new Set(Object.keys(item));
+        } else if ($.isMap(item)) {
+            let ret = new Set();
+            item.forEach((v, k) => {
+                ret.add(k);
+            });
+            return ret;
+        } else if ($.isSet(item)) {
+            throw new TypeError('Set 타입은 `keys`를 지원하지 않습니다.');
+        }
+    },
+
+    values(item) {
+        if (!$.isIterable(item)) {
+            throw new TypeError(item + ' is not iterable');
+        }
+
+        if ($.isObject(item)) {
+            let ret = new Set();
+            for (let key in item) {
+                ret.add(item[key]);
+            }
+            return ret;
+        } else if ($.isMap(item)) {
+            let ret = new Set();
+            item.forEach((_, k) => {
+                ret.add(k);
+            });
+            return ret;
+        } else if ($.isSet(item)) {
+            return item;
+        } else if ($.isIndexable(item)) {
+            let ret = [];
+            for (let i = 0; i < item.length; i++) {
+                ret.add(item[i]);
+            }
+            return ret;
+        }
+    },
+
+    each(iterable, iteratee) {
+        if (!$.isIterable(iterable)) {
+            throw new TypeError(iterable + ' is not iterable');
+        }
+
+        let iterator = $.getIterator(iterable);
+
+        for (let next = iterator.next(), idx = 0; next.done === false; next = iterator.next(), idx++) {
+            if ($.isHashTable(iterable)) {
+                next.value = [next.value.value, next.value.key];
+            } else {
+                next.value = [next.value];
+                if ($.isIndexable(iterable)) {
+                    next.value.push(idx);
+                }
+            }
+
+            let returnValue = iteratee.apply(null, next.value);
+            if (returnValue === false) {
+                break;
+            }
+        }
+    },
+
+    map(iterable, iteratee) {
+        if (!$.isIterable(iterable)) {
+            throw new TypeError(iterable + ' is not iterable');
+        }
+
+        if ($.isArray(iterable)) {
+
+        }
+        let ret = [];
+        $.each(iterable, (...args) => {
+            ret.push(iteratee.apply(null, args));
+        });
+        return ret;
+    },
+
+    zip() {
+
+    },
+
+    unzip() {
+
+    },
+
+    associate
 });
 
 for (let key in $) {
@@ -204,3 +412,7 @@ for (let key in $) {
 }
 
 module.exports = $;
+
+o = {a: 1, b: 2, c: 3, d: 4, e: 5};
+m = new Map([['a', 1], ['b', 2], ['c', 3], ['d', 4], ['e', 5]]);
+$.each(m, (v, k) => console.log(v, k));
