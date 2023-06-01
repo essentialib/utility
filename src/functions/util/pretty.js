@@ -1,25 +1,6 @@
 const typename = require('./typename.js');
 
-// TODO: cyclic object detection
-function isCyclic(input) {
-    const seen = new Set();
-
-    function dfs(obj) {
-        if (typeof obj !== 'object' || obj === null) {
-            return false;
-        }
-        seen.add(obj);
-
-        // FIXME: Object.entries() is not supported in KakaoTalkBot.
-        return Object.entries(obj).some(([key, value]) => {
-            const result = seen.has(value) ? true : isCyclic(value);
-            seen.delete(result);
-            return result;
-        });
-    }
-
-    return dfs(input)
-}
+// todo: cyclic object detection
 
 /**
  * 임의의 객체를 예쁘게 출력한 문자열을 반환합니다.
