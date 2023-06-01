@@ -620,7 +620,6 @@ $ = Object.assign($, {
     },
 
     // TODO
-    //  - chuck
     //  - balancedChunk
     //  - flatten
     //      - flatten
@@ -743,7 +742,26 @@ $ = Object.assign($, {
         }
 
         config.outputfn(str);
-    }
+    },
+
+    chuck(item, size) {
+        if (size <= 0) {
+            throw new Error('size는 0보다 커야 합니다.');
+        }
+
+        let ret = [];
+        let start = 0;
+        let end = size;
+
+        while (start < $.len(item)) {
+            ret.push($.slice(item, start, end));
+
+            start += size;
+            end += size;
+        }
+
+        return ret;
+    },
 });
 
 for (let key in $) {

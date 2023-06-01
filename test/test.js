@@ -8,4 +8,4 @@ let pos = $.pair(3, 5);
 let pos3d = $.tuple(3, 4, 5);
 pos.first = 4;
 
-$.print(pos, pos3d, o, l, m);
+$.print(pos, pos3d, o, l, m, {sep:'\n'});
