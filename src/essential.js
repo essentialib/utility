@@ -1,7 +1,7 @@
 const len = require("./functions/util/len");
 const typename = require("./functions/util/typename");
 
-function Essential(wrapped, outputfn) {
+function Essential(wrapped) {
     Object.defineProperty(this, 'chaining', {
         value: false, configurable: false
     });
@@ -108,6 +108,34 @@ $ = Object.assign($, {
             case 'String':
                 ret = ret.slice(0, idx) + ret.slice(idx + 1);
                 break;
+        }
+
+        return ret;
+    },
+
+    concat(item) {
+        let ret;
+
+        if ($.isArray(item)) {
+            ret = item;
+            for (let i = 1; i < arguments.length; i++) {
+                if ($.isArray(arguments[i])) {
+                    ret = ret.concat(arguments[i]);
+                } else {
+                    ret.push(arguments[i]);
+                }
+            }
+        } else if ($.isString(item)) {
+            ret = item;
+            for (let i = 1; i < arguments.length; i++) {
+                ret += arguments[i].toString();
+            }
+        } else if ($.isNumber(item)) {
+            ret = item;
+            for (let i = 1; i < arguments.length; i++) {
+                ret *= Math.pow(10, $.len(arguments[i]));
+                ret += parseInt(arguments[i]);
+            }
         }
 
         return ret;
@@ -240,11 +268,21 @@ $ = Object.assign($, {
     slice(item, start, end, step) {
         let length = $.len(item);
 
-        if (start == null || start < -length) start = 0; else if (start < 0) start = length + start; else if (start > length) start = length;
+        if (start == null || start < -length)
+            start = 0;
+        else if (start < 0)
+            start = length + start;
+        else if (start > length)
+            start = length;
 
-        if (end == null || end < -length) end = length; else if (end < 0) end = length + end; else if (end > length) end = length;
+        if (end == null || end < -length)
+            end = length;
+        else if (end < 0)
+            end = length + end;
+        else if (end > length)
+            end = length;
 
-        step = step || 1;
+        step ||= 1;
 
         if (step === 0) throw new Error("Step cannot be 0");
 
@@ -662,9 +700,109 @@ $ = Object.assign($, {
     //  - size
     //  - print
 
+    isEmpty(item) {
+        return $.len(item) === 0;
+    },
+
+    range(start, end, step) {
+        function Range(start, end, step) {
+            if (step === 0) {
+                throw new Error('step cannot be 0');
+            }
+
+            if (end === undefined && step === undefined) {
+                end = start;
+                start = 0;
+            }
+            step ||= 1;
+
+            Object.defineProperty(this, 'start', {
+                value: start,
+                configurable: false
+            });
+
+            Object.defineProperty(this, 'end', {
+                value: start + step * (Math.ceil((end - start) / step) - 1) + 1,
+                configurable: false
+            });
+
+            Object.defineProperty(this, 'step', {
+                value: step,
+                configurable: false
+            });
+
+            Object.defineProperty(this, 'length', {
+                value: Math.ceil((this.end - this.start) / this.step),
+                configurable: false
+            });
+        }
+
+        Range.prototype[Symbol.iterator] = function () {
+            let start = this.start;
+            let end = this.end;
+            let step = this.step;
+
+            return {
+                next() {
+                    // this.length 사용하기
+                    if (start !== end - 1) {
+                        let ret = {
+                            value: start,
+                            done: false
+                        };
+
+                        start += step;
+
+                        return ret;
+                    } else {
+                        return {
+                            done: true
+                        };
+                    }
+                }
+            }
+        }
+
+        Range.prototype.toString = function () {
+            return $.concat('', this.start, '...', this.end-1, (this.step !== 1) ? $.concat(' step ', this.step) : '');
+        }
+
+        return new Range(start, end, step);
+    },
+
+    format(str) {
+        let args = Array.from(arguments);
+        args.shift();
+
+        if ($.len(args) === 0)
+            return str;
+
+        if ($.isObject(args[0]) && $.len(args) === 1) {
+            args = args[0];
+
+            return str.split('{{}}')
+                .map(e => e.replace(/{([_$a-zA-Z][_$\w]*)}/g, (_, group) => {
+                    return args[group];
+                })).join('{}');
+        } else {
+            if ($.isArray(args[0]) && $.len(args) === 1)
+                args = args[0];
+
+            return str.split('{{}}')
+                .map(e => e.replace(/{(\d+)}/g, (_, group) => {
+                    let idx = parseInt(group);
+
+                    if (idx >= $.len(args))
+                        // error content like: index (7) out of range (0..2)
+                        throw new RangeError('index (' + idx + ') out of range (0..' + ($.len(args) - 1) + ')');
+
+                    return args[idx];
+
+                })).join('{}');
+        }
+    },
 
     pretty(item, maxLength) {
-        // 모바일 카카오톡에서 보내는 메시지 한 줄의 최대 길이가 18인 것 같네요?
         maxLength ||= 18;
 
         let str = '';
@@ -714,7 +852,9 @@ $ = Object.assign($, {
         let str = '';
         let args = Array.from(arguments);
         let config = {
-            'sep': ' ', 'start': '', 'end': '', 'maxLength': null, 'balanced': false, outputfn(x) { console.log(x); }
+            'sep': ' ', 'start': '', 'end': '', 'maxLength': null, 'balanced': false, outputfn(x) {
+                console.log(x);
+            }
         };
 
         if ($.isObject($.at(arguments, -1))) {
@@ -746,7 +886,7 @@ $ = Object.assign($, {
 
     chuck(item, size) {
         if (size <= 0) {
-            throw new Error('size는 0보다 커야 합니다.');
+            throw new Error('`size`는 0보다 커야 합니다.');
         }
 
         let ret = [];
@@ -762,7 +902,7 @@ $ = Object.assign($, {
 
         return ret;
     },
-});
+})
 
 for (let key in $) {
     Essential.prototype[key] = function () {

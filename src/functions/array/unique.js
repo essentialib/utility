@@ -7,11 +7,11 @@
  * _(['a', 'b', 'c', 'a', 'b', 'c']).unique(); // ['a', 'b', 'c']
  */
 
-function unique() {
-    let ret = this.wrap;
+function unique(item) {
+    let ret = item;
     for (let i = 0; i < ret.length; i++) {
         for (let j = i + 1; j < ret.length; j++) {
-            if (this.equalf(ret[i], ret[j])) {
+            if (this.equal(ret[i], ret[j])) {
                 ret.splice(j, 1);
                 j--;
             }
