@@ -8,7 +8,5 @@ let pos = $.pair(3, 5);
 let pos3d = $.tuple(3, 4, 5);
 pos.first = 4;
 
-let r = $.range(-5, -240, -7);
-for (let i of r) {
-    console.log(i);
-}
+let r = $.range(-10, -100, -4);
+$.print($.format('r is from {start} to {stop} with step {step}', {start:r.start, stop:r.stop, step:r.step}));

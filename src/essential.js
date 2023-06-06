@@ -417,7 +417,20 @@ $ = Object.assign($, {
             case "Number":
                 return Math.floor(Math.log10(item)) + 1;
             default:
-                if (item == null) return undefined; else if ('size' in item) return item.size; else if ('length' in item) return item.length; else return undefined;
+                if (item == null) return undefined;
+                else if ('size' in item) {
+                    if (typeof item.size === 'function')
+                        return item.size();
+                    else
+                        return item.size;
+                }
+                else if ('length' in item) {
+                    if (typeof item.length === 'function')
+                        return item.length();
+                    else
+                        return item.length;
+                }
+                else return undefined;
         }
     },
 
@@ -704,14 +717,14 @@ $ = Object.assign($, {
         return $.len(item) === 0;
     },
 
-    range(start, end, step) {
-        function Range(start, end, step) {
+    range(start, stop, step) {
+        function Range(start, stop, step) {
             if (step === 0) {
                 throw new Error('step cannot be 0');
             }
 
-            if (end === undefined && step === undefined) {
-                end = start;
+            if (stop === undefined && step === undefined) {
+                stop = start;
                 start = 0;
             }
             step ||= 1;
@@ -721,8 +734,8 @@ $ = Object.assign($, {
                 configurable: false
             });
 
-            Object.defineProperty(this, 'end', {
-                value: start + step * (Math.ceil((end - start) / step) - 1) + 1,
+            Object.defineProperty(this, 'stop', {
+                value: start + step * (Math.ceil((stop - start) / step) - 1) + ((step > 0) ? 1 : -1),
                 configurable: false
             });
 
@@ -732,42 +745,44 @@ $ = Object.assign($, {
             });
 
             Object.defineProperty(this, 'length', {
-                value: Math.ceil((this.end - this.start) / this.step),
+                value: Math.max(0, Math.ceil((this.stop - this.start) / this.step)),
                 configurable: false
             });
         }
 
         Range.prototype[Symbol.iterator] = function () {
             let start = this.start;
-            let end = this.end;
             let step = this.step;
+
+            let i = 0;
+            let len = this.length;
 
             return {
                 next() {
-                    // this.length 사용하기
-                    if (start !== end - 1) {
+                    if (i === len) {
+                        return {
+                            done: true
+                        };
+                    } else {
                         let ret = {
                             value: start,
                             done: false
                         };
 
                         start += step;
+                        i++;
 
                         return ret;
-                    } else {
-                        return {
-                            done: true
-                        };
                     }
                 }
             }
         }
 
         Range.prototype.toString = function () {
-            return $.concat('', this.start, '...', this.end-1, (this.step !== 1) ? $.concat(' step ', this.step) : '');
+            return $.concat('(', this.start, '...', this.stop-((this.step > 0) ? 1 : -1), (this.step !== 1) ? ' by ' + this.step : '', ')');
         }
 
-        return new Range(start, end, step);
+        return new Range(start, stop, step);
     },
 
     format(str) {
@@ -788,16 +803,26 @@ $ = Object.assign($, {
             if ($.isArray(args[0]) && $.len(args) === 1)
                 args = args[0];
 
+            let auto = false;
+            let acc = 0;
+
             return str.split('{{}}')
-                .map(e => e.replace(/{(\d+)}/g, (_, group) => {
-                    let idx = parseInt(group);
+                .map(e => e.replace(/{(\d*)}/g, (_, group) => {
+                    if (group === '') {
+                        if (auto === false && acc !== 0)
+                            throw new Error('cannot mix automatic and manual numbering');
 
-                    if (idx >= $.len(args))
-                        // error content like: index (7) out of range (0..2)
-                        throw new RangeError('index (' + idx + ') out of range (0..' + ($.len(args) - 1) + ')');
+                        auto = true;
+                        return args[acc++];
+                    } else {
+                        if (auto)
+                            throw new Error('cannot mix automatic and manual numbering');
 
-                    return args[idx];
-
+                        acc = parseInt(group);
+                        if (acc >= $.len(args))
+                            throw new RangeError('index (' + acc + ') out of range ' + $.range(0, $.len(args)));
+                        return args[acc];
+                    }
                 })).join('{}');
         }
     },
@@ -860,7 +885,7 @@ $ = Object.assign($, {
         if ($.isObject($.at(arguments, -1))) {
             cfg = $.at(arguments, -1);
             config.sep = cfg.sep || config.sep;
-            config.end = cfg.end || config.end;
+            config.end = cfg.stop || config.end;
             config.maxLength = cfg.maxLength || config.maxLength;
             config.balanced = cfg.balanced || config.balanced;
             config.outputfn = cfg.outputfn || config.outputfn;

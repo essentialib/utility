@@ -131,8 +131,9 @@ _.pretty(new Set([1, 2, 3])); // Set {1, 2, 3}
 ```
 
 # range
+
 ```js
-_.range([start=0], end, [step=1])
+_.range([start = 0], stop, [step = 1])
 ```
 start부터 end까지 step만큼 증가하는 배열을 반환한다.
 
