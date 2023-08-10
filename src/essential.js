@@ -1,6 +1,3 @@
-const len = require("./functions/util/len");
-const typename = require("./functions/util/typename");
-
 function Essential(wrapped) {
     Object.defineProperty(this, 'chaining', {
         value: false, configurable: false
@@ -101,7 +98,7 @@ $ = Object.assign($, {
 
         let ret = item;
 
-        switch (typename(ret)) {
+        switch ($.typename(ret)) {
             case 'Array':
                 ret.splice(idx, 1);
                 break;
@@ -877,9 +874,8 @@ $ = Object.assign($, {
         let str = '';
         let args = Array.from(arguments);
         let config = {
-            'sep': ' ', 'start': '', 'end': '', 'maxLength': null, 'balanced': false, outputfn(x) {
-                console.log(x);
-            }
+            'sep': ' ', 'start': '', 'end': '', 'maxLength': null, 'balanced': false,
+            'outputfn': x => console.log(x) // fixme: 카카오톡 봇 용으로 배포할 땐 또 바꿔야함
         };
 
         if ($.isObject($.at(arguments, -1))) {
@@ -933,6 +929,8 @@ for (let key in $) {
     Essential.prototype[key] = function () {
         let args = Array.from(arguments);
         args.unshift(this.value());
+
+        // chaining
         return new Essential($[key].apply(null, args));
     }
 }
