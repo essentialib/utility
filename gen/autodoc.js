@@ -1,8 +1,8 @@
-const _ = require('../src/essential_old.js');
+const _ = require('../src/old/essential_old.js');
 
 const fs = require('fs');
 const path = require('path');
-const dirPath = path.join(__dirname, '../src/functions');
+const dirPath = path.join(__dirname, '../src/old_functions');
 
 class Typemark {
   constructor(type, name, description) {

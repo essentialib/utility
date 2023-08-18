@@ -130,7 +130,7 @@ _(this).productBy([by=(e => e)])
 _([{a: 2}, {a: 3}, {a: 4}]).productBy(v => v.a); // 24
 ```
 
-# sum
+# reduce
 ```js
 _(this).sum()
 ```
