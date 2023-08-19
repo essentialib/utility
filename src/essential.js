@@ -1,7 +1,6 @@
 const Range = require('classes/Range');
 const Pair = require('classes/Pair');
 const Tuple = require('classes/Tuple');
-const is = require('functions/is');
 
 function Essential(wrapped) {
     Object.defineProperty(this, 'chaining', {
@@ -22,13 +21,16 @@ $ = Object.assign($, {
      * @param iterable
      */
 
+    // 주의.
     // $(3).in($.range(1, 5)) // true
     // $(3.5).in($.range(1, 5)) // false
 
     // 예약어
     in(item, iterable) {
         if (iterable instanceof Range) {
-            return is(item, Number) && Number.isInt && iterable.start
+            return Number.isInteger(item) && (iterable.start <= item && item < iterable.end);
+        } else {
+
         }
         // implement
     },

@@ -6,6 +6,14 @@ function Pair(first, second) {
     Object.defineProperty(this, 'second', {
         value: second, configurable: false
     });
+
+    Object.defineProperty(this, 'length', {
+        value: 2, configurable: false
+    });
+
+    this.toArray = function () {
+        return [this.first, this.second];
+    }
 }
 
 Pair.prototype.toString = function () {

@@ -10,7 +10,7 @@ const len = require('./len.js');
  * @return {*}
  */
 module.exports = function pop(indexer, idx) {
-    idx ||= -1;
+    idx Pair= -1;
 
     if (idx < 0) {
         idx += len(indexer);

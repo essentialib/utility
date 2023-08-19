@@ -11,6 +11,9 @@ const isFunction = require('./isFunction');
 const isSymbol = require('./isSymbol');
 const isRegExp = require('./isRegExp');
 const isDate = require('./isDate');
+const isRange = require('./isRange');
+const isPair = require('./isPair');
+const isTuple = require('./isTuple');
 
 /**
  * document
@@ -59,6 +62,10 @@ module.exports = function pretty(item, maxLength) {
         str = item.toString();
     } else if (isDate(item)) {
         str = item.toJSON();
+    } else if (isPair(item)) {
+        str = '(' + pretty(item[0], maxLength) + ', ' + pretty(item[1], maxLength) + ')';
+    } else if (isTuple(item)) {
+        str = '(' + item.toArray().map(e => pretty(e, maxLength)).join(', ') + ')';
     } else str = item.toString();
 
     return str;

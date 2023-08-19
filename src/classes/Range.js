@@ -28,6 +28,14 @@ function Range(start, stop, step) {
         value: Math.max(0, Math.ceil((this.stop - this.start) / this.step)),
         configurable: false
     });
+
+    this.toArray = function () {
+        let arr = [];
+        for (let i = this.start; i !== this.stop; i += this.step) {
+            arr.push(i);
+        }
+        return arr;
+    }
 }
 
 Range.prototype.toString = function () {
