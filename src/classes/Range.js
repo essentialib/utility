@@ -31,7 +31,7 @@ function Range(start, stop, step) {
 }
 
 Range.prototype.toString = function () {
-    return $.concat('(', this.start, '...', this.stop-((this.step > 0) ? 1 : -1), (this.step !== 1) ? ' by ' + this.step : '', ')');
+    return '(' + this.start + '...' + (this.stop-((this.step > 0) ? 1 : -1)) + ((this.step !== 1) ? ' by ' + this.step : '') + ')';
 }
 
 Range.prototype[Symbol.iterator] = function () {

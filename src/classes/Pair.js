@@ -1,4 +1,4 @@
-function Pair() {
+function Pair(first, second) {
     Object.defineProperty(this, 'first', {
         value: first, configurable: false
     });
@@ -9,7 +9,7 @@ function Pair() {
 }
 
 Pair.prototype.toString = function () {
-    return `(${this.first}, ${this.second})`;
+    return '(' + this.first + ', ' + this.second + ')';
 }
 
 Pair.prototype[Symbol.iterator] = function () {

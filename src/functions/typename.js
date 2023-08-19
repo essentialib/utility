@@ -2,11 +2,11 @@
  * `item`의 타입 이름을 반환합니다.
  *
  * @example
- * $.typename(1);
+ * typename(1);
  * // => Number
- * $.typename('abc');
+ * typename('abc');
  * // => String
- * $.typename([1, 2, 3]);
+ * typename([1, 2, 3]);
  * // => Array
  *
  * @param {any} item 임의의 값

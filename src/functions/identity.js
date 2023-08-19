@@ -2,9 +2,9 @@
  * 상수 함수입니다. `item`을 그대로 반환합니다.
  *
  * @example
- * $.identity(1);
+ * identity(1);
  * // => 1
- * $.identity('abc');
+ * identity('abc');
  * // => abc
  *
  * @template T
