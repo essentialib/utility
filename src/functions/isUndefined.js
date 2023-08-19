@@ -1,5 +1,3 @@
-const typename = require('./typename');
-
 /**
  * document
  * 
@@ -7,5 +5,5 @@ const typename = require('./typename');
  * @return {boolean}
  */
 module.exports = function isUndefined(item) {
-    return typename(item) === 'undefined';
+    return item === undefined;
 }

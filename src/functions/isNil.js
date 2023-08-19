@@ -1,5 +1,3 @@
-const typename = require('./typename.js');
-
 /**
  * document
  *
@@ -14,6 +12,5 @@ const typename = require('./typename.js');
  * @return {boolean}
  */
 module.exports = function isNil(item) {
-    let typeName = typename(item);
-    return typeName === 'null' || typeName === 'undefined';
+    return item === null || item === undefined;
 }

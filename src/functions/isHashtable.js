@@ -1,4 +1,4 @@
-const typename = require('./typename.js');
+const is = require('./is');
 
 /**
  * document
@@ -6,6 +6,5 @@ const typename = require('./typename.js');
  * @return {boolean}
  */
 module.exports = function isHashtable(item) {
-    let typeName = typename(item);
-    return typeName === 'Object' || typeName === 'Map';
+    return is(item, Object) || is(item, Map);
 }

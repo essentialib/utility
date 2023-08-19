@@ -1,4 +1,4 @@
-const typename = require('./typename');
+const is = require('./is');
 
 /**
  * document
@@ -7,6 +7,6 @@ const typename = require('./typename');
  * @return {boolean}
  */
 module.exports = function isIterable(item) {
-    return typename(item) === 'Object' || typename(item[Symbol.iterator]) === 'Function';
+    return is(item, Object) || is(item[Symbol.iterator], Function);
     // Object.entries() 가 Object[Symbol.iterator] 기능을 해주기 때문에 Object도 iterable이라고 생각함.
 }

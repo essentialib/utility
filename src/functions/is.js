@@ -1,5 +1,8 @@
 const isConstructor = require('./isConstructor.js');
 const typename = require('./typename.js');
+const Range = require('../classes/Range.js');
+const Pair = require('../classes/Pair.js');
+const Tuple = require('../classes/Tuple.js');
 
 /**
  * document
@@ -19,5 +22,28 @@ module.exports = function is(item, constructor) {
         throw new TypeError('`constructor`는 생성자 함수여야 합니다.');
     }
 
-    return typename(item) === constructor.name;
+    switch (constructor) {
+        case Array:
+            return Array.isArray(item);
+        case Boolean:
+            return typeof item === 'boolean';
+        case String:
+            return typeof item === 'string';
+        case Number:
+            return typeof item === 'number';
+        case Range:
+            return item instanceof Range;
+        case Pair:
+            return item instanceof Pair;
+        case Tuple:
+            return item instanceof Tuple;
+        case Map:
+            return item instanceof Map;
+        case Set:
+            return item instanceof Set;
+        case Date:
+            return item instanceof Date;
+        default:
+            return typename(item) === constructor.name;
+    }
 }

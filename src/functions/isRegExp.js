@@ -1,4 +1,4 @@
-const typename = require('./typename');
+const is = require('./is');
 
 /**
  * document
@@ -7,5 +7,5 @@ const typename = require('./typename');
  * @return {boolean}
  */
 module.exports = function isRegExp(item) {
-    return typename(item) === 'RegExp';
+    return is(item, RegExp);
 }

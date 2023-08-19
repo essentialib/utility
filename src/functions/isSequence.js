@@ -1,4 +1,4 @@
-const typename = require('./typename');
+const is = require('./is');
 
 /**
  * document
@@ -6,6 +6,5 @@ const typename = require('./typename');
  * @return {boolean}
  */
 module.exports = function isSequence(item) {
-    let typeName = typename(item);
-    return typeName === 'Array' || typeName === 'String' || typeName === 'Set';
+    return is(item, Array) || is(item, String) || is(item, Set);
 }

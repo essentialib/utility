@@ -1,4 +1,4 @@
-const typename = require('./typename');
+const is = require('./is');
 
 /**
  * document
@@ -7,5 +7,5 @@ const typename = require('./typename');
  * @return {boolean}
  */
 module.exports = function isArray(item) {
-    return typename(item) === 'Array';
+    return is(item, Array);
 }
