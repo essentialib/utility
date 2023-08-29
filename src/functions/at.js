@@ -6,10 +6,14 @@ const IndexError = require('../errors/IndexError');
 /**
  * document
  * @param {string|array} indexer
- * @param index
- * @return {*}
+ * @param {number} index
+ * @return {any}
  */
 module.exports = function at(indexer, index) {
+    if (!Number.isInteger(index)) {
+        throw new TypeError(index + ' is not integer');
+    }
+    
     if (index < 0) {
         index += len(indexer);
     }
