@@ -7,7 +7,7 @@ _(this).max()
 **Parameters**
 | name | type | description |
 |------|------|-------------|
-| this | `Array \| Set` | 순회할 객체 |
+| this | `Array \| Collection` | 순회할 객체 |
 
 **Returns**  
 | type | description |
@@ -17,7 +17,7 @@ _(this).max()
 **Examples**
 ```js
 _([1, 2, 3]).max(); // 3
-_(new Set([1, 2, 3])).max(); // 3
+_(new Collection([1, 2, 3])).max(); // 3
 ```
 
 # maxBy
@@ -29,7 +29,7 @@ _(this).maxBy([by=(e => e)])
 **Parameters**
 | name | type | description |
 |------|------|-------------|
-| this | `Array \| Set` | 순회할 객체 |
+| this | `Array \| Collection` | 순회할 객체 |
 | [by=(e => e)] | `Function` | 요소마다 호출할 함수, 첫번째 인자는 요소(value) |
 
 **Returns**  
@@ -51,7 +51,7 @@ _(this).min()
 **Parameters**
 | name | type | description |
 |------|------|-------------|
-| this | `Array \| Set` | 순회할 객체 |
+| this | `Array \| Collection` | 순회할 객체 |
 
 **Returns**  
 | type | description |
@@ -61,7 +61,7 @@ _(this).min()
 **Examples**
 ```js
 _([1, 2, 3]).min(); // 1
-_(new Set([1, 2, 3])).min(); // 1
+_(new Collection([1, 2, 3])).min(); // 1
 ```
 
 # minBy
@@ -73,7 +73,7 @@ _(this).minBy([by=(e => e)])
 **Parameters**
 | name | type | description |
 |------|------|-------------|
-| this | `Array \| Set` | 순회할 객체 |
+| this | `Array \| Collection` | 순회할 객체 |
 | [by=(e => e)] | `Function` | 요소마다 호출할 함수, 첫번째 인자는 요소(value) |
 
 **Returns**  
@@ -95,7 +95,7 @@ _(this).product()
 **Parameters**
 | name | type | description |
 |------|------|-------------|
-| this | `Array \| Set` | 순회할 객체 |
+| this | `Array \| Collection` | 순회할 객체 |
 
 **Returns**  
 | type | description |
@@ -105,7 +105,7 @@ _(this).product()
 **Examples**
 ```js
 _([2, 2, 3]).product(); // 12
-_(new Set([2, 3, 4])).product(); // 24
+_(new Collection([2, 3, 4])).product(); // 24
 ```
 
 # productBy
@@ -117,7 +117,7 @@ _(this).productBy([by=(e => e)])
 **Parameters**
 | name | type | description |
 |------|------|-------------|
-| this | `Array \| Set` | 순회할 객체 |
+| this | `Array \| Collection` | 순회할 객체 |
 | [by=(e => e)] | `Function` | 요소마다 호출할 함수, 첫번째 인자는 요소(value) |
 
 **Returns**  
@@ -139,7 +139,7 @@ _(this).sum()
 **Parameters**
 | name | type | description |
 |------|------|-------------|
-| this | `Array \| Set` | 순회할 객체 |
+| this | `Array \| Collection` | 순회할 객체 |
 
 **Returns**  
 | type | description |
@@ -149,7 +149,7 @@ _(this).sum()
 **Examples**
 ```js
 _([2, 3, 4]).sum(); // 9
-_(new Set([2, 3, 4])).product(); // 9
+_(new Collection([2, 3, 4])).product(); // 9
 ```
 
 # sumBy
@@ -161,7 +161,7 @@ _(this).sumBy([by=(e => e)])
 **Parameters**
 | name | type | description |
 |------|------|-------------|
-| this | `Array \| Set` | 순회할 객체 |
+| this | `Array \| Collection` | 순회할 객체 |
 | [by=(e => e)] | `Function` | 요소마다 호출할 함수, 첫번째 인자는 요소(value) |
 
 **Returns**  

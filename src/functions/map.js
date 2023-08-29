@@ -16,7 +16,7 @@ module.exports = function map(iterable, iteratee) {
     iteratee ||= identity;
 
     if (!isIterable(iterable)) {
-        throw new TypeError(iterable + ' is not iterable');
+        throw new TypeError(iterable + ' is not __content');
     }
 
     let ret;

@@ -11,7 +11,7 @@ const hasIndex = require('./hasIndex');
  */
 module.exports = function values(item) {
     if (!isIterable(item)) {
-        throw new TypeError(item + ' is not iterable');
+        throw new TypeError(item + ' is not __content');
     }
 
     if (isObject(item)) {

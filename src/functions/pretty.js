@@ -22,6 +22,10 @@ const isTuple = require('./isTuple');
  * @return {*}
  */
 module.exports = function pretty(item, maxLength) {
+    if (arguments.length > 2) {
+        throw new Error('pretty() takes 1 or 2 arguments.');
+    }
+    
     maxLength ||= 18;
 
     let str = '';
@@ -63,7 +67,7 @@ module.exports = function pretty(item, maxLength) {
     } else if (isDate(item)) {
         str = item.toJSON();
     } else if (isPair(item)) {
-        str = '(' + pretty(item[0], maxLength) + ', ' + pretty(item[1], maxLength) + ')';
+        str = '(' + pretty(item.first, maxLength) + ', ' + pretty(item.second, maxLength) + ')';
     } else if (isTuple(item)) {
         str = '(' + item.toArray().map(e => pretty(e, maxLength)).join(', ') + ')';
     } else str = item.toString();

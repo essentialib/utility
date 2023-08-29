@@ -9,9 +9,5 @@ const Range = require('../classes/Range');
  * @return {Range}
  */
 module.exports = function rangeClose(start, stop, step) {
-    if (step > 0) {
-        return new Range(start, stop + 1, step);
-    } else {
-        return new Range(start, stop - 1, step);
-    }
+    // implement
 }

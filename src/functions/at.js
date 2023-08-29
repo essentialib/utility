@@ -1,14 +1,22 @@
-const len = require('./len.js');
+const len = require('./len');
+const indices = require('./indices');
+const _in = require('./in');
+const IndexError = require('../errors/IndexError');
 
 /**
  * document
- * @param item
+ * @param {string|array} indexer
  * @param index
  * @return {*}
  */
-module.exports = function at(item, index) {
+module.exports = function at(indexer, index) {
     if (index < 0) {
-        index = len(item) + index;
+        index += len(indexer);
     }
-    return item[index];
+    
+    if (_in(index, indices(indexer))) {
+        throw new IndexError(indexer, index);
+    }
+    
+    return indexer[index];
 }

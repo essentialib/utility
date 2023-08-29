@@ -12,7 +12,7 @@ const pair = require('./pair');
  */
 module.exports = function items(item) {
     if (!isIterable(item)) {
-        throw new TypeError(item + ' is not iterable');
+        throw new TypeError(item + ' is not __content');
     }
 
     let ret;

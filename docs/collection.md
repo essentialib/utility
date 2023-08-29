@@ -7,21 +7,21 @@ _(this).add(item, [value])
 **Parameters**
 | name | type | description |
 |------|------|-------------|
-| this | `Array \| String \| Object \| Set \| Map` | `item`을 추가할 객체 |
+| this | `Array \| String \| Object \| Collection \| Map` | `item`을 추가할 객체 |
 | item | `*` | 추가할 값(key) |
 | [value] | `*` | 추가할 값(value) |
 
 **Returns**  
 | type | description |
 |------|-------------|
-| `Array \| String \| Object \| Set \| Map` | `item`을 this에 추가한 값 |
+| `Array \| String \| Object \| Collection \| Map` | `item`을 this에 추가한 값 |
 
 **Examples**
 ```js
 _([0, 1, 2]).add(3) // [0, 1, 2, 3]
 _('abc').add('d') // 'abcd'
 _({ a: 1 }).add('b', 2) // { a: 1, b: 2 }
-_(new Set([0, 1, 2])).add(3) // Set { 0, 1, 2, 3 }
+_(new Collection([0, 1, 2])).add(3) // Collection { 0, 1, 2, 3 }
 _(new Map([['a', 1]])).add('b', 2) // Map { 'a' => 1, 'b' => 2 }
 ```
 
@@ -37,7 +37,7 @@ falsy한 값을 제거한 배열를 반환합니다.
 **Parameters**
 | name | type | description |
 |------|------|-------------|
-| this | `Array \| String \| Object \| Set \| Map` | falsy한 값을 제거할 배열 |
+| this | `Array \| String \| Object \| Collection \| Map` | falsy한 값을 제거할 배열 |
 
 **Returns**  
 | type | description |
@@ -58,7 +58,7 @@ _(this).count(item)
 **Parameters**
 | name | type | description |
 |------|------|-------------|
-| this | `Array \| String \| Object \| Set \| Map` | 순회할 객체 |
+| this | `Array \| String \| Object \| Collection \| Map` | 순회할 객체 |
 | item | `*` | 개수를 세고자 하는 값 |
 
 **Returns**  
@@ -71,7 +71,7 @@ _(this).count(item)
 _([0, 1, 2, 3, 0, 1, 2, 3]).count(0); // 2
 _('abcabc').count('a'); // 2
 _({ a: 1, b: 2, c: 1 }).count(1); // 2
-_(new Set([0, 1, 2, 3, 0, 1, 2, 3])).count(0); // 1
+_(new Collection([0, 1, 2, 3, 0, 1, 2, 3])).count(0); // 1
 _(new Map([['a', 1], ['b', 2], ['c', 1]])).count(1); // 2
 ```
 
@@ -84,7 +84,7 @@ _(this).countBy(item, by)
 **Parameters**
 | name | type | description |
 |------|------|-------------|
-| this | `Array \| String \| Object \| Set \| Map` | 순회할 객체 |
+| this | `Array \| String \| Object \| Collection \| Map` | 순회할 객체 |
 | item | `*` | 개수를 세고자 하는 값 |
 | by | `Function` | 요소마다 호출할 함수, 첫번째 인자는 요소(value), 두번째 인자는 인덱스(key) |
 
@@ -111,7 +111,7 @@ _(this).each(viewer)
 **Parameters**
 | name | type | description |
 |------|------|-------------|
-| this | `Array \| String \| Object \| Set \| Map` | 순회할 객체 |
+| this | `Array \| String \| Object \| Collection \| Map` | 순회할 객체 |
 | viewer | `Function` | 요소마다 호출할 함수, 첫번째 인자는 요소(value), 두번째 인자는 인덱스(key) |
 
 **Returns**  
@@ -124,7 +124,7 @@ _(this).each(viewer)
 _([1, 2, 3]).each(e => console.log(e)); // 1 2 3
 _('abc').each(e => console.log(e)); // a b c
 _({ a: 1, b: 2, c: 3 }).each((v, k) => console.log(v, k)); // 1 'a' 2 'b' 3 'c'
-_(new Set([1, 2, 3])).each(e => console.log(e)); // 1 2 3
+_(new Collection([1, 2, 3])).each(e => console.log(e)); // 1 2 3
 _(new Map([['a', 1], ['b', 2], ['c', 3]])).each((v, k) => console.log(v, k)); // 1 'a' 2 'b' 3 'c'
 ```
 
@@ -137,7 +137,7 @@ _(this).every(condition)
 **Parameters**
 | name | type | description |
 |------|------|-------------|
-| this | `Array \| String \| Object \| Set \| Map` | 순회할 객체 |
+| this | `Array \| String \| Object \| Collection \| Map` | 순회할 객체 |
 | condition | `Function` | 요소마다 호출할 함수, 첫번째 인자는 요소(value), 두번째 인자는 인덱스(key) |
 
 **Returns**  
@@ -161,13 +161,13 @@ _(this).filter(condition)
 **Parameters**
 | name | type | description |
 |------|------|-------------|
-| this | `Array \| String \| Object \| Set \| Map` | 순회할 객체 |
+| this | `Array \| String \| Object \| Collection \| Map` | 순회할 객체 |
 | condition | `Function` | 요소마다 호출할 함수, 첫번째 인자는 요소(value), 두번째 인자는 인덱스(key) |
 
 **Returns**  
 | type | description |
 |------|-------------|
-| `Set \| String \| Array \| Map \| Object` | 조건에 맞는 요소들로 이루어진 객체 |
+| `Collection \| String \| Array \| Map \| Object` | 조건에 맞는 요소들로 이루어진 객체 |
 
 **Examples**
 ```js
@@ -185,13 +185,13 @@ _(this).filterNot(condition)
 **Parameters**
 | name | type | description |
 |------|------|-------------|
-| this | `Array \| String \| Object \| Set \| Map` | 순회할 객체 |
+| this | `Array \| String \| Object \| Collection \| Map` | 순회할 객체 |
 | condition | `Function` | 요소마다 호출할 함수, 첫번째 인자는 요소(value), 두번째 인자는 인덱스(key) |
 
 **Returns**  
 | type | description |
 |------|-------------|
-| `Set \| String \| Array \| Map \| Object` | 조건에 맞지 않는 요소들로 이루어진 객체 |
+| `Collection \| String \| Array \| Map \| Object` | 조건에 맞지 않는 요소들로 이루어진 객체 |
 
 **Examples**
 ```js
@@ -209,7 +209,7 @@ _(this).freq()
 **Parameters**
 | name | type | description |
 |------|------|-------------|
-| this | `Array \| String \| Object \| Set \| Map` | 순회할 객체 |
+| this | `Array \| String \| Object \| Collection \| Map` | 순회할 객체 |
 
 **Returns**  
 | type | description |
@@ -235,7 +235,7 @@ _(this).has(item)
 **Parameters**
 | name | type | description |
 |------|------|-------------|
-| this | `Array \| String \| Object \| Set \| Map` | 순회할 객체 |
+| this | `Array \| String \| Object \| Collection \| Map` | 순회할 객체 |
 | item | `*` | 찾을 요소 |
 
 **Returns**  
@@ -267,13 +267,13 @@ _(this).items()
 **Returns**  
 | type | description |
 |------|-------------|
-| `Array<Item> \| Set<Item>` | 객체의 요소들을 Item 객체로 변환하여 반환합니다. 순서가 있는 객체는 Array, 없는 객체는 Set으로 반환합니다. |
+| `Array<Item> \| Collection<Item>` | 객체의 요소들을 Item 객체로 변환하여 반환합니다. 순서가 있는 객체는 Array, 없는 객체는 Set으로 반환합니다. |
 
 **Examples**
 ```js
 _([1, 2, 3]).items(); // [Item(0, 1), Item(1, 2), Item(2, 3)]
 _('abc').items(); // [Item(0, 'a'), Item(1, 'b'), Item(2, 'c')]
-_({ a: 1, b: 2, c: 3 }).items(); // Set { Item('a', 1), Item('b', 2), Item('c', 3) }
+_({ a: 1, b: 2, c: 3 }).items(); // Collection { Item('a', 1), Item('b', 2), Item('c', 3) }
 ```
 
 # keys
@@ -290,14 +290,14 @@ _(this).keys()
 **Returns**  
 | type | description |
 |------|-------------|
-| `Set \| Array` | 키값들로 이루어진 객체, 순서가 있는 객체는 Array, 없는 객체는 Set |
+| `Collection \| Array` | 키값들로 이루어진 객체, 순서가 있는 객체는 Array, 없는 객체는 Collection |
 
 **Examples**
 ```js
 _([1, 2, 3]).keys(); // [0, 1, 2]
 _('abc').keys(); // [0, 1, 2]
-_({ 'a': 1, 'b': 2, 'c': 3 }).keys(); // Set { 'a', 'b', 'c' }
-_((new Map([['a', 1], ['b', 2], ['c', 3]]))).keys(); // Set { 'a', 'b', 'c' }
+_({ 'a': 1, 'b': 2, 'c': 3 }).keys(); // Collection { 'a', 'b', 'c' }
+_((new Map([['a', 1], ['b', 2], ['c', 3]]))).keys(); // Collection { 'a', 'b', 'c' }
 ```
 
 # map
@@ -312,13 +312,13 @@ _(this).map(transformer)
 **Parameters**
 | name | type | description |
 |------|------|-------------|
-| this | `Array \| String \| Object \| Set \| Map` | 순회할 객체 |
+| this | `Array \| String \| Object \| Collection \| Map` | 순회할 객체 |
 | transformer | `Function` | 요소마다 호출할 함수, 첫번째 인자는 요소(value), 두번째 인자는 인덱스(key) |
 
 **Returns**  
 | type | description |
 |------|-------------|
-| `Array \| Set \| String \| Map \| Object` | 각 요소에 대해 `transformer`를 호출한 결과를 모은 배열 |
+| `Array \| Collection \| String \| Map \| Object` | 각 요소에 대해 `transformer`를 호출한 결과를 모은 배열 |
 
 **Examples**
 ```js
@@ -339,7 +339,7 @@ _(this).reach(viewer)
 **Parameters**
 | name | type | description |
 |------|------|-------------|
-| this | `Array \| String \| Object \| Set \| Map` | 순회할 객체 |
+| this | `Array \| String \| Object \| Collection \| Map` | 순회할 객체 |
 | viewer | `Function` | 요소마다 호출할 함수, 첫번째 인자는 요소(value), 두번째 인자는 인덱스(key) |
 
 **Returns**  
@@ -362,7 +362,7 @@ _(this).some(condition)
 **Parameters**
 | name | type | description |
 |------|------|-------------|
-| this | `Array \| String \| Object \| Set \| Map` | 순회할 객체 |
+| this | `Array \| String \| Object \| Collection \| Map` | 순회할 객체 |
 | condition | `Function` | 요소마다 호출할 함수, 첫번째 인자는 요소(value), 두번째 인자는 인덱스(key) |
 
 **Returns**  
@@ -386,16 +386,16 @@ _(this).values()
 **Parameters**
 | name | type | description |
 |------|------|-------------|
-| this | `Array \| String \| Object \| Map \| Set` | 순회할 객체 |
+| this | `Array \| String \| Object \| Map \| Collection` | 순회할 객체 |
 
 **Returns**  
 | type | description |
 |------|-------------|
-| `Set \| Array` | 값들로 이루어진 객체, 순서가 있는 객체는 Array, 없는 객체는 Set |
+| `Collection \| Array` | 값들로 이루어진 객체, 순서가 있는 객체는 Array, 없는 객체는 Collection |
 
 **Examples**
 ```js
 _([1, 2, 3]).values(); // [1, 2, 3]
 _('abc').values(); // ['a', 'b', 'c']
-_({ 'a': 1, 'b': 2, 'c': 3 }).values(); // Set { 1, 2, 3 }
+_({ 'a': 1, 'b': 2, 'c': 3 }).values(); // Collection { 1, 2, 3 }
 ```

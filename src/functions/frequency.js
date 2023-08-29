@@ -2,7 +2,7 @@ const each = require('./each');
 const instead = require('./instead');
 
 /**
- * `iterable`의 빈도 맵을 반환합니다.
+ * `__content`의 빈도 맵을 반환합니다.
  *
  * @example
  * frequency([1, 2, 3, 2, 1]);

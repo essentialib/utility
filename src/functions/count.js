@@ -2,7 +2,7 @@ const each = require('./each');
 const equal = require('./equal');
 
 /**
- * `iterable`에서 `value`가 등장하는 횟수를 반환합니다.
+ * `__content`에서 `value`가 등장하는 횟수를 반환합니다.
  *
  * @example
  * count([1, 2, 3, 1], 1)

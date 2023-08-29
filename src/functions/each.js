@@ -5,7 +5,7 @@ const isHashtable = require('./isHashtable');
 const hasIndex = require('./hasIndex');
 
 /**
- * `iterable`의 각 요소에 `iteratee`를 적용합니다. `iteratee`는 일반적으로 반환값이 없는 함수이나,
+ * `__content`의 각 요소에 `iteratee`를 적용합니다. `iteratee`는 일반적으로 반환값이 없는 함수이나,
  * 만약 `iteratee`가 반환값을 가지면, `each`는 `iteratee`의 반환값을 반환하고 반복을 종료합니다. for 문에서 break 문을 사용한 경우와 같습니다.
  * 반복 중에 중단 없이 모든 루프를 마칠 경우, `each`는 true 를 반환합니다.
  *
@@ -27,7 +27,7 @@ const hasIndex = require('./hasIndex');
  */
 module.exports = function each(iterable, iteratee) {
     if (!isIterable(iterable)) {
-        throw new TypeError(iterable + ' is not iterable');
+        throw new TypeError(iterable + ' is not __content');
     }
 
     iteratee ||= identity;

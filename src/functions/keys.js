@@ -11,7 +11,7 @@ const isSet = require('./isSet');
  */
 module.exports = function keys(item) {
     if (!isIterable(item)) {
-        throw new TypeError(item + ' is not iterable');
+        throw new TypeError(item + ' is not __content');
     }
 
     if (hasIndex(item)) {

@@ -100,7 +100,7 @@ _.len(item)
 ```js
 _.len([1, 2, 3]); // 3
 _.len({a: 1, b: 2, c: 3}); // 3
-_.len(new Set([1, 2, 3])); // 3
+_.len(new Collection([1, 2, 3])); // 3
 _.len(new Map([['a', 1], ['b', 2], ['c', 3]])); // 3
 _.len('abc'); // 3
 _.len(123); // 3
@@ -127,7 +127,7 @@ _.pretty(item, [maxLength=18])
 ```js
 _.pretty([1, 2, 3]); // [1, 2, 3]
 _.pretty({a: 1, b: 2, c: 3}); // {a: 1, b: 2, c: 3}
-_.pretty(new Set([1, 2, 3])); // Set {1, 2, 3}
+_.pretty(new Collection([1, 2, 3])); // Collection {1, 2, 3}
 ```
 
 # range
@@ -182,7 +182,7 @@ _.typename(''); // 'string'
 _.typename(true); // 'boolean'
 _.typename({}); // 'object'
 _.typename([]); // 'array'
-_.typename(new Set()); // 'set'
+_.typename(new Collection()); // 'set'
 _.typename(new Map()); // 'map'
 _.typename(new Date()); // 'date'
 _.typename(/a/); // 'regexp'

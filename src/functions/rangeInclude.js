@@ -1,4 +1,5 @@
 const Range = require('../classes/Range');
+const rangeClose = require('./rangeClose');
 
 /**
  *

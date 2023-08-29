@@ -1,7 +1,8 @@
 const hasIndex = require('./hasIndex');
+const range = require('./range');
+const len = require('./len');
 
 /**
- * implement
  * `indexer`의 인덱스 범위를 반환합니다.
  *
  * @example
@@ -17,4 +18,6 @@ module.exports = function indices(indexer) {
     if (!hasIndex(indexer)) {
         throw new TypeError(indexer + ' has no index');
     }
+    
+    return range(0, len(indexer) - 1);
 }

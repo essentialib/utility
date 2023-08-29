@@ -9,11 +9,11 @@ const isObject = require('./isObject');
  */
 module.exports = function getIterator(iterable) {
     if (!isIterable(iterable)) {
-        throw new TypeError(iterable + ' is not iterable');
+        throw new TypeError(iterable + ' is not __content');
     }
 
     if (!isObject(iterable)) return function () {
-        return iterable[Symbol.iterator];
+        return iterable[Symbol.iterator]();
     }();
     else return function () {
         const keys = Object.keys(iterable);
@@ -22,8 +22,7 @@ module.exports = function getIterator(iterable) {
         return {
             next() {
                 if (index < keys.length) {
-                    return {value: [keys[index], iterable[keys[index]]], done: false};
-                    index++;
+                    return {value: [keys[index], iterable[keys[index++]]], done: false};
                 } else {
                     return {done: true};
                 }
