@@ -5,7 +5,7 @@ const len = require('./len.js');
  * 배열의 [start, end) 구간에서 step만큼 건너뛴 배열을 반환합니다. Python의 slice 문법과 일치합니다.
  * @example
  *
- * @param {Array} item 배열, 혹은 유사 배열(유사 배열도 slice 결과는 배열로 리턴됩니다.)
+ * @param {string|array} item 배열, 혹은 유사 배열(유사 배열도 slice 결과는 배열로 리턴됩니다.)
  * @param {Number} [start=0] 시작 인덱스, 음수일 경우 배열의 끝에서부터 센 인덱스
  * @param {Number} [end=length] 끝 인덱스, 음수일 경우 배열의 끝에서부터 센 인덱스
  * @param {Number} [step=1] 건너뛸 간격

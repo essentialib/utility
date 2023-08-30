@@ -1,23 +1,22 @@
 const len = require('./len');
 const slice = require('./slice');
+const assert = require('./assert');
 
 /**
  * document
- * @param {any} item
- * @param size
- * @return {*[]}
+ * @param {string|array} indexer
+ * @param {number} size
+ * @return {any[]}
  */
-module.exports = function chuck(item, size) {
-    if (size <= 0) {
-        throw new Error('`size`는 0보다 커야 합니다.');
-    }
+module.exports = function chuck(indexer, size) {
+    assert(size > 0, '`size`는 0보다 커야 합니다.');
 
     let ret = [];
     let start = 0;
     let end = size;
 
-    while (start < len(item)) {
-        ret.push(slice(item, start, end));
+    while (start < len(indexer)) {
+        ret.push(slice(indexer, start, end));
 
         start += size;
         end += size;

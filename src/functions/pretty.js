@@ -14,6 +14,7 @@ const isDate = require('./isDate');
 const isRange = require('./isRange');
 const isPair = require('./isPair');
 const isTuple = require('./isTuple');
+const assertFalse = require('./assertFalse');
 
 /**
  * document
@@ -22,9 +23,7 @@ const isTuple = require('./isTuple');
  * @return {*}
  */
 module.exports = function pretty(item, maxLength) {
-    if (arguments.length > 2) {
-        throw new Error('pretty() takes 1 or 2 arguments.');
-    }
+    assertFalse(arguments.length > 2, 'pretty()는 1개 또는 2개의 인자를 받습니다.');
     
     maxLength ||= 18;
 
