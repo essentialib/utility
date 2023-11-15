@@ -1,3 +1,7 @@
 const $ = require('../src/essential.js');
 
-console.log($.pretty(1, 2, 3, 4));
+function a() {
+    if $(arguments).isTypes(String, String, Number) {
+
+    }
+}
